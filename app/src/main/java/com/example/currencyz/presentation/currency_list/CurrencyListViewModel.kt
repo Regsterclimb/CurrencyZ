@@ -13,7 +13,7 @@ class CurrencyListViewModel(private val repository: CurrencyRepository) : ViewMo
 
     private var _mutableCurrencyListLiveData = MutableLiveData<List<MyCurrency>>()
 
-    val currencyListLiveData : LiveData<List<MyCurrency>> = _mutableCurrencyListLiveData
+    val currencyListLiveData: LiveData<List<MyCurrency>> = _mutableCurrencyListLiveData
 
     fun loadCurrencyToLiveData() {
         viewModelScope.launch {

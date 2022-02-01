@@ -23,12 +23,6 @@ class CurrencyDataRepositoryImpl() : NetworkModuleProvider,CurrencyDataRepositor
 
     private val networkModule = NetworkModule()
 
-    override suspend fun loadDataCurrency(id: String): CurrencyDto? = withContext(Dispatchers.IO) {
-        val cachedCurrency = currenciesList ?: loadDataCurrencyList()
-        cachedCurrency.find { it.id == id }
-
-    }
-
     override suspend fun loadDataCurrencyList(): List<CurrencyDto> = withContext(Dispatchers.IO) {
         currenciesList = makeList() // cache maybe
         makeList()
@@ -81,16 +75,6 @@ class CurrencyDataRepositoryImpl() : NetworkModuleProvider,CurrencyDataRepositor
             Log.d("list", "$list")
             list
         }
-
-    init {
-        startGettingData()
-
-    }
-
-    fun startGettingData() {
-        scope.launch { loadApiData() }
-        scope.launch { makeList() }
-    }
 
     override fun provideNetworkModule(): NetworkModule = networkModule
 

@@ -1,18 +1,17 @@
 package com.example.currencyz
 
 import android.os.Bundle
-import android.widget.Toast
+import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
-import com.example.currencyz.data.repository.CurrencyDataRepositoryImpl
 import com.example.currencyz.di.CurrencyRepositoryProvider
-import com.example.currencyz.domain.model.MyCurrency
 import com.example.currencyz.domain.repository.CurrencyRepository
 import com.example.currencyz.domain.repository.CurrencyRepositoryImpl
+import com.example.currencyz.presentation.currency_detail.CurrencyFragment
 import com.example.currencyz.presentation.currency_list.CurrencyListFragment
 import com.example.currencyz.presentation.currency_list.OnCurrencyClickListner
 import kotlinx.coroutines.*
 
-class MainActivity : AppCompatActivity(), OnCurrencyClickListner,CurrencyRepositoryProvider {
+class MainActivity : AppCompatActivity(), OnCurrencyClickListner, CurrencyRepositoryProvider {
 
     private val repositoryImpl = CurrencyRepositoryImpl()
 
@@ -39,8 +38,12 @@ class MainActivity : AppCompatActivity(), OnCurrencyClickListner,CurrencyReposit
 
     }
 
-    override fun clickOnCurrencyCart(currency: MyCurrency) {
-        Toast.makeText(applicationContext, "clicked on Currency", Toast.LENGTH_SHORT).show()
+    override fun clickOnCurrencyCart(myCurrencyId: String) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.container, CurrencyFragment.newInstance(myCurrencyId))
+            addToBackStack(null)
+            commit()
+        }
     }
 
     override fun provideCurrencyRepository(): CurrencyRepository = repositoryImpl
