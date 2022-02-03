@@ -34,7 +34,9 @@ class CurrencyPresenter
 
             val res = interactor.changeCurrency(number)
             when (res) {
-                is EditTextResult.Error -> view?.showEditTextError()
+                is EditTextResult.Error -> {
+                    view?.showEditTextError()
+                }
                 is EditTextResult.Success -> {
                     view?.showSuccess(calculateIt(number, nominal, value))
                 }

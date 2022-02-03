@@ -33,13 +33,13 @@ class CurrencyFragment : Fragment(), CurrencyView {
     )
 
     override fun onAttach(context: Context) {
-        if (context is onClickListner) {
+        if (context is ClickListner) {
             listner = context
         }
         super.onAttach(context)
     }
 
-    private var listner: onClickListner? = null
+    private var listner: ClickListner? = null
     private var input: TextInputLayout? = null
     private var edit: TextInputEditText? = null
     private var changeBtn: View? = null
@@ -110,17 +110,23 @@ class CurrencyFragment : Fragment(), CurrencyView {
     private fun bindUi(myCurrency: RefactoredMyCurrency, view: View) {
         edit = view.findViewById(R.id.edit_text)
         input = view.findViewById(R.id.textInput)
+
         doOnTextChange(edit, input)
         changeBtn = view.findViewById(R.id.change_button)
+
         loader = view.findViewById(R.id.currency_fragment_loader)
         changeSuccess = view.findViewById(R.id.result)
+
         rubText = view.findViewById(R.id.result_valute)
         rubText?.text = myCurrency.charCode
+
         view.findViewById<TextView>(R.id.currency_name_value).text = myCurrency.name
         view.findViewById<TextView>(R.id.currency_char_code_value).text = myCurrency.charCode
+
         view.findViewById<TextView>(R.id.currency_num_code_value).text = myCurrency.numCode
         view.findViewById<TextView>(R.id.currency_value_value).text =
-            myCurrency.value.toString() // asdasd
+            myCurrency.value.toString()
+
         setupListners(view, myCurrency)
         setColors(view.findViewById(R.id.currency_previous_value), myCurrency) //setColors to Курс
     }
@@ -174,13 +180,12 @@ class CurrencyFragment : Fragment(), CurrencyView {
 
     override fun showEditTextError() {
         edit?.error = "Не правильный формат"
+        changeSuccess?.text = ""
     }
 
     override fun showSuccess(resultString: String) {
         changeBtn?.isEnabled = true
         changeSuccess?.text = resultString
-        changeSuccess?.isVisible = true
-        rubText?.isVisible = true
 
     }
 

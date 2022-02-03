@@ -2,17 +2,16 @@ package com.example.currencyz
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.currencyz.data.repository.CurrencyDataRepositoryImpl
 import com.example.currencyz.di.CurrencyRepositoryProvider
 import com.example.currencyz.domain.repository.CurrencyRepository
 import com.example.currencyz.domain.repository.CurrencyRepositoryImpl
 import com.example.currencyz.presentation.currency_detail.CurrencyFragment
-import com.example.currencyz.presentation.currency_detail.onClickListner
+import com.example.currencyz.presentation.currency_detail.ClickListner
 import com.example.currencyz.presentation.currency_list.CurrencyListFragment
 import com.example.currencyz.presentation.currency_list.OnCurrencyClickListner
 import kotlinx.coroutines.*
 
-class MainActivity : AppCompatActivity(), OnCurrencyClickListner, CurrencyRepositoryProvider,onClickListner {
+class MainActivity : AppCompatActivity(), OnCurrencyClickListner, CurrencyRepositoryProvider,ClickListner {
 
     private var  repositoryImpl = CurrencyRepositoryImpl()
 
