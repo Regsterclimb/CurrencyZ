@@ -4,6 +4,6 @@ import com.example.currencyz.data.remote.dto.CurrencyDto
 
 interface CurrencyDataRepository {
 
-    suspend fun loadDataCurrencyList(): List<CurrencyDto>
+    suspend fun loadDataCurrencyDtoList(): List<CurrencyDto>
 
 }

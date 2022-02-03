@@ -7,7 +7,5 @@ interface CurrencyRepository {
 
     suspend fun loadCurrencyList(): List<MyCurrency> // calling to api every time after configurationchange TODO()
 
-    suspend fun getCurrency(id: String): RefactoredMyCurrency?
-
 
 }

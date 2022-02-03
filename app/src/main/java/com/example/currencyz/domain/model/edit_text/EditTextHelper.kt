@@ -1,7 +1,7 @@
 package com.example.currencyz.domain.model.edit_text
 
 class EditTextHelper {
-    companion object{
+    companion object {
         fun countDigitAfterDot(string: String) = EditTextHelper().countAfterDot(string)
     }
 

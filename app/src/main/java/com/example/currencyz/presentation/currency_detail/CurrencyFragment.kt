@@ -49,6 +49,7 @@ class CurrencyFragment : Fragment(), CurrencyView {
 
     override fun onDestroyView() {
 
+        listner = null
         presenter.detachView()
         input = null
         edit = null
@@ -172,7 +173,7 @@ class CurrencyFragment : Fragment(), CurrencyView {
     }
 
     override fun showEditTextError() {
-        edit?.error = "ERROR"
+        edit?.error = "Не правильный формат"
     }
 
     override fun showSuccess(resultString: String) {

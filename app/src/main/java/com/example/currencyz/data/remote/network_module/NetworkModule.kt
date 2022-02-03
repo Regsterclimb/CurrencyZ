@@ -9,7 +9,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.create
 import retrofit2.http.GET
-import retrofit2.http.Path
 
 class NetworkModule : NetworkModuleResponses {
 
@@ -22,8 +21,6 @@ class NetworkModule : NetworkModuleResponses {
         suspend fun loadDataFromApi(): apiData
 
     }
-
-
 
     private object RetrofitModule {
 
@@ -50,8 +47,6 @@ class NetworkModule : NetworkModuleResponses {
     }
 
     override suspend fun getAllData(): apiData = RetrofitModule.cbrCurrencyApi.loadDataFromApi()
-
-    /// Responses TODO()
 
 }
 

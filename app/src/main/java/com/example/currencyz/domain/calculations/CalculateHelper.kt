@@ -38,7 +38,7 @@ class CalculateHelper {
 
     private fun stringDecimalFormat(bigDecimal: BigDecimal): String {
         val nf = DecimalFormat("#.##")
-        return bigDecimal.toString()
+        return bigDecimal.setScale(2, RoundingMode.DOWN).toString()
     }
 
 

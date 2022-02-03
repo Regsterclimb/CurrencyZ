@@ -1,28 +1,22 @@
 package com.example.currencyz.data.repository
 
-import android.content.Context
-import android.util.Log
 import com.example.currencyz.data.remote.dto.CurrencyDto
 import com.example.currencyz.data.remote.dto.ValuteDto
 import com.example.currencyz.data.remote.dto.apiData
 import com.example.currencyz.data.remote.dto.currencies.toCurrencyDto
 import com.example.currencyz.data.remote.network_module.NetworkModule
 import com.example.currencyz.di.NetworkModuleProvider
-import com.example.currencyz.domain.model.MyCurrency
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.NullPointerException
 
-class CurrencyDataRepositoryImpl : NetworkModuleProvider,CurrencyDataRepository {
+class CurrencyDataRepositoryImpl : NetworkModuleProvider, CurrencyDataRepository {
 
     private var currenciesList: List<CurrencyDto>? = null
 
     private val networkModule = NetworkModule()
 
-    override suspend fun loadDataCurrencyList(): List<CurrencyDto> = withContext(Dispatchers.IO) {
-        currenciesList = makeList() // cache maybe
+    override suspend fun loadDataCurrencyDtoList(): List<CurrencyDto> = withContext(Dispatchers.IO) {
+        currenciesList = makeList()
         makeList()
     }
 
@@ -30,10 +24,12 @@ class CurrencyDataRepositoryImpl : NetworkModuleProvider,CurrencyDataRepository 
         networkModule.getAllData()
     }
 
+    //first list with CurrencyDTO from Api
     private suspend fun makeList(): List<CurrencyDto> =
-        withContext(Dispatchers.IO) { //first list with CurrencyDTO from Api
+        withContext(Dispatchers.IO) {
             val valuteDto: ValuteDto = loadApiData().valuteDto //
 
+            //возможно есть более изящный способ TODO() подумать поискать
             val list = listOf(
                 valuteDto.aMD.toCurrencyDto(),
                 valuteDto.aUD.toCurrencyDto(),
@@ -69,8 +65,7 @@ class CurrencyDataRepositoryImpl : NetworkModuleProvider,CurrencyDataRepository 
                 valuteDto.uZS.toCurrencyDto(),
                 valuteDto.xDR.toCurrencyDto(),
                 valuteDto.zAR.toCurrencyDto(),
-            )
-            Log.d("list", "$list")
+            ).sortedBy { it.name }
             list
         }
 

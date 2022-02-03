@@ -2,6 +2,7 @@ package com.example.currencyz
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.currencyz.data.repository.CurrencyDataRepositoryImpl
 import com.example.currencyz.di.CurrencyRepositoryProvider
 import com.example.currencyz.domain.repository.CurrencyRepository
 import com.example.currencyz.domain.repository.CurrencyRepositoryImpl
@@ -15,7 +16,6 @@ class MainActivity : AppCompatActivity(), OnCurrencyClickListner, CurrencyReposi
 
     private var  repositoryImpl = CurrencyRepositoryImpl()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity(), OnCurrencyClickListner, CurrencyReposi
         if (savedInstanceState == null) {
             startCurrencyListFragment()
         }
-
     }
 
     private fun startCurrencyListFragment() {
@@ -51,6 +50,4 @@ class MainActivity : AppCompatActivity(), OnCurrencyClickListner, CurrencyReposi
     override fun backPressed() {
         supportFragmentManager.popBackStack()
     }
-
-
 }

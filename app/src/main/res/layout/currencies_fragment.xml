@@ -70,6 +70,8 @@
         android:layout_marginTop="@dimen/space_1"
         android:layout_marginStart="@dimen/space_1"
         android:layout_marginEnd="@dimen/space_1"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
