@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.currencyz.R
 import com.example.currencyz.di.CurrencyRepositoryProvider
 import com.example.currencyz.domain.model.MyCurrency
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 class CurrencyListFragment : Fragment() {
 
@@ -28,8 +30,8 @@ class CurrencyListFragment : Fragment() {
     }
 
     override fun onAttach(context: Context) {
-        super.onAttach(context)
 
+        super.onAttach(context)
     }
 
     override fun onCreateView(
@@ -45,19 +47,23 @@ class CurrencyListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<RecyclerView>(R.id.currencies_recycler).apply {
-
             this.layoutManager = GridLayoutManager(this.context, 1)
             val adapter = CurrencyListAdapter {
-                (listner?.clickOnCurrencyCart(it.id)) // maybe dangerous*****
-
+                listner?.clickOnCurrency(it.id)
             }
-            this.adapter = adapter
 
-            viewModel.loadCurrencyToLiveData()
+            this.adapter = adapter
+            viewModel.loadCurrencyListSp()
             viewModel.currencyListLiveData.observe(
                 this@CurrencyListFragment.viewLifecycleOwner,
                 { insertCurrencyDataToAdapter(it) })
         }
+        view.findViewById<FloatingActionButton>(R.id.refresh_button).apply {
+            setOnClickListener {
+                clickOnFloatingButton()
+            }
+        }
+
     }
 
     override fun onDetach() {
@@ -72,13 +78,19 @@ class CurrencyListFragment : Fragment() {
         adapter.submitList(list)
     }
 
-
     fun setListner(clicker: OnCurrencyClickListner?) {
         listner = clicker
     }
 
+    fun clickOnFloatingButton() {
+
+        viewModel.loadCurrencyListApi()
+        val adapter =
+            view?.findViewById<RecyclerView>(R.id.currencies_recycler)?.adapter as CurrencyListAdapter
+        adapter.notifyDataSetChanged()
+    }
 }
 
 interface OnCurrencyClickListner {
-    fun clickOnCurrencyCart(myCurrencyId: String)
+    fun clickOnCurrency(myCurrencyId: String)
 }

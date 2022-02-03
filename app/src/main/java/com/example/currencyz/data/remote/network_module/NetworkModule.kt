@@ -51,7 +51,7 @@ class NetworkModule : NetworkModuleResponses {
 
     override suspend fun getAllData(): apiData = RetrofitModule.cbrCurrencyApi.loadDataFromApi()
 
-    /// Responses
+    /// Responses TODO()
 
 }
 

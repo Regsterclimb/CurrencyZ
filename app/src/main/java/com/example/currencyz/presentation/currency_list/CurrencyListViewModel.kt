@@ -15,11 +15,17 @@ class CurrencyListViewModel(private val repository: CurrencyRepository) : ViewMo
 
     val currencyListLiveData: LiveData<List<MyCurrency>> = _mutableCurrencyListLiveData
 
-    fun loadCurrencyToLiveData() {
+    fun loadCurrencyListApi() {
         viewModelScope.launch {
             _mutableCurrencyListLiveData.postValue(repository.loadCurrencyList())
         }
 
+    }
+
+    fun loadCurrencyListSp() {
+        viewModelScope.launch {
+            _mutableCurrencyListLiveData.postValue(repository.getCurrencyListSp())
+        }
     }
 
 }

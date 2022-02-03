@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">CurrencyZ</string>
+    <string name="sum_rub">Сумма в рублях</string>
+    <string name="rub">РУБ</string>
+    <string name="back">Back</string>
+    <string name="kurs">Курс</string>
+    <string name="Valute">Валюта(Код)</string>
+    <string name="Unit">Единиц</string>
+    <string name="number">Номер</string>
+    <string name="refresh_recycler">refresh_recycler</string>
+    <string name="name">Название :</string>
+    <string name="kod">Код :</string>
+    <string name="numcod">Цифровой код :</string>
+    <string name="kyrs_1">Курс :</string>
+    <string name="title">Перевести рубли в валюту</string>
+    <string name="Change">Перевести</string>
 </resources>

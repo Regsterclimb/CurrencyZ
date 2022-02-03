@@ -15,9 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.NullPointerException
 
-class CurrencyDataRepositoryImpl() : NetworkModuleProvider,CurrencyDataRepository {
-
-    private val scope = CoroutineScope(Dispatchers.IO)
+class CurrencyDataRepositoryImpl : NetworkModuleProvider,CurrencyDataRepository {
 
     private var currenciesList: List<CurrencyDto>? = null
 

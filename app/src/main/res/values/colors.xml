@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     //background
     <color name="background_black">#191926</color>
+    <color name="Violet">#EE82EE</color>
+    <color name="MediumPurple">#9370DB</color>
 
     //text Colors
     <color name="text_full_white">#FFFFFF</color>
