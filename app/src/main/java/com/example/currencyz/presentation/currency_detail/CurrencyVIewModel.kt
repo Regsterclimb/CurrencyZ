@@ -20,13 +20,14 @@ class CurrencyVIewModel(private val repository: CurrencyRepository) : ViewModel(
     fun getMyCurrency(id: String?) {
         try {
             id!!
+            viewModelScope.launch {
+                _myCurrencyLiveData.postValue(repository.getCurrency(id))
+
+            }
         } catch (e: IllegalFormatException) {
             Log.e("logs", "IllegalFormatException in CurrencyViewModel")
         }
-        viewModelScope.launch {
-            _myCurrencyLiveData.postValue(repository.getCurrency(id!!))
 
-        }
     }
 
 

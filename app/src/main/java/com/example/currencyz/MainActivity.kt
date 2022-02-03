@@ -13,7 +13,7 @@ import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity(), OnCurrencyClickListner, CurrencyRepositoryProvider,onClickListner {
 
-    private var  repositoryImpl = CurrencyRepositoryImpl(this)
+    private var  repositoryImpl = CurrencyRepositoryImpl()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

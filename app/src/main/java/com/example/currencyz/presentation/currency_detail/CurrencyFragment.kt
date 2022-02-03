@@ -1,6 +1,5 @@
 package com.example.currencyz.presentation.currency_detail
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
@@ -8,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -18,9 +16,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.currencyz.R
 import com.example.currencyz.di.CurrencyRepositoryProvider
+import com.example.currencyz.domain.model.RefactoredMyCurrency
 import com.example.currencyz.domain.model.edit_text.EditTextHelper
 import com.example.currencyz.domain.model.edit_text.EditTextInteractor
-import com.example.currencyz.domain.model.RefactoredMyCurrency
+import com.example.currencyz.presentation.ViewModel.CurrencyListModelFactory
+import com.example.currencyz.presentation.ViewModel.CurrencyListViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
@@ -76,8 +76,11 @@ class CurrencyFragment : Fragment(), CurrencyView {
     }
 
 
-    private val viewModel: CurrencyVIewModel by viewModels {
-        CurrencyModelFactory((requireActivity() as CurrencyRepositoryProvider).provideCurrencyRepository())
+    private val viewModel: CurrencyListViewModel by viewModels {
+        CurrencyListModelFactory(
+            (requireActivity() as CurrencyRepositoryProvider).provideCurrencyRepository(),
+            requireActivity().applicationContext
+        )
     }
 
 

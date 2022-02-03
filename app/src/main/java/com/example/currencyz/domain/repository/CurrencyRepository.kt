@@ -9,6 +9,5 @@ interface CurrencyRepository {
 
     suspend fun getCurrency(id: String): RefactoredMyCurrency?
 
-    suspend fun getCurrencyListSp() : List<MyCurrency>
 
 }
