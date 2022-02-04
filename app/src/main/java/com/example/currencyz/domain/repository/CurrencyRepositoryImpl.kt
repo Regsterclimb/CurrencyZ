@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 class CurrencyRepositoryImpl() : CurrencyRepository,
     CurrencyDataRepositoryProvider {
 
-    private val dataRepository = CurrencyDataRepositoryImpl()// fix or Not? TODO()
+    private val dataRepository = CurrencyDataRepositoryImpl()
 
     override suspend fun loadCurrencyList(): List<MyCurrency> =
         withContext(Dispatchers.IO) { //saving to sharedPref

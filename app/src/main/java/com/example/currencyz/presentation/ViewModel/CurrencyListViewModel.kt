@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.currencyz.domain.model.MyCurrency
 import com.example.currencyz.domain.model.RefactoredMyCurrency
 import com.example.currencyz.domain.repository.CurrencyRepository
-import com.example.currencyz.domain.repository.SharedLikeDb
+import com.example.currencyz.domain.repository.SharedPrefData
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -25,21 +25,27 @@ class CurrencyListViewModel(
     private val _myCurrencyLiveData = MutableLiveData<RefactoredMyCurrency>()
     val myCurrencyLiveData: LiveData<RefactoredMyCurrency> = _myCurrencyLiveData
 
+    private val _loadingState = MutableLiveData<Boolean>()
+    val loadingState = _loadingState
+
+
+
     fun loadCurrencyListApi() {
         viewModelScope.launch {
-            //setLoading
+            _loadingState.value = true
             val list = repository.loadCurrencyList()
-            SharedLikeDb.saveData(sharedPreferences, list)
+            SharedPrefData.saveData(sharedPreferences, list)
             _mutableCurrencyListLiveData.postValue(list)
-            //loading success
+            _loadingState.value = false
         }
 
     }
 
     fun loadCurrencyListSp() {
         viewModelScope.launch {
+            _loadingState.value = true
             //setLoading
-            val cachedList = SharedLikeDb.restoreData(sharedPreferences)
+            val cachedList = SharedPrefData.restoreData(sharedPreferences)
             if (cachedList != null) {
                 //setLoading true
                 _mutableCurrencyListLiveData.postValue(cachedList)
@@ -47,8 +53,9 @@ class CurrencyListViewModel(
                 //setLoading true*/
                 val loadedList = repository.loadCurrencyList()
                 _mutableCurrencyListLiveData.postValue(loadedList)
-                SharedLikeDb.saveData(sharedPreferences, loadedList)
+                SharedPrefData.saveData(sharedPreferences, loadedList)
             }
+            _loadingState.value = false
             //loading success
         }
         //setLoading false
@@ -61,7 +68,7 @@ class CurrencyListViewModel(
             viewModelScope.launch {
                 //setLoading
                 _myCurrencyLiveData.postValue(
-                    SharedLikeDb.tryGetCurrencyData(
+                    SharedPrefData.tryGetCurrencyData(
                         sharedPreferences,
                         id
                     )

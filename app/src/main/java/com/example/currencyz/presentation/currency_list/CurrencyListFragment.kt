@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -19,10 +21,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CurrencyListFragment : Fragment() {
 
-    private var listner: OnCurrencyClickListner? = null //  need'd  reNull this
+    private var listner: OnCurrencyClickListner? = null //  onDetach
 
     private val viewModel: CurrencyListViewModel by viewModels {
-        CurrencyListModelFactory((requireActivity() as CurrencyRepositoryProvider).provideCurrencyRepository(), requireActivity().applicationContext)
+        CurrencyListModelFactory(
+            (requireActivity() as CurrencyRepositoryProvider).provideCurrencyRepository(),
+            requireActivity().applicationContext
+        )
     }
 
     companion object {
@@ -54,12 +59,13 @@ class CurrencyListFragment : Fragment() {
                 listner?.clickOnCurrency(it.id)
             }
             this.adapter = adapter
-            viewModel.loadCurrencyListSp()
-            viewModel.currencyListLiveData.observe(
-                this@CurrencyListFragment.viewLifecycleOwner,
-                { insertCurrencyListToAdapter(it) })
-
         }
+        viewModel.loadCurrencyListSp()
+        viewModel.currencyListLiveData.observe(
+            this.viewLifecycleOwner,
+            { insertCurrencyListToAdapter(it) })
+        viewModel.loadingState.observe(this.viewLifecycleOwner, { loadingStateChange(it) })
+
         view.findViewById<FloatingActionButton>(R.id.refresh_button).apply {
             setOnClickListener {
                 clickOnFloatingButton()
@@ -68,7 +74,7 @@ class CurrencyListFragment : Fragment() {
     }
 
     override fun onDetach() {
-        listner
+        listner = null
         super.onDetach()
     }
 
@@ -87,6 +93,11 @@ class CurrencyListFragment : Fragment() {
         val adapter =
             view?.findViewById<RecyclerView>(R.id.currencies_recycler)?.adapter as CurrencyListAdapter
         adapter.notifyDataSetChanged()
+    }
+
+    private fun loadingStateChange(boolean: Boolean) {
+        view?.findViewById<RecyclerView>(R.id.currencies_recycler)?.isVisible = !boolean
+        view?.findViewById<ProgressBar>(R.id.list_loader)?.isVisible = boolean//TODO()
     }
 }
 

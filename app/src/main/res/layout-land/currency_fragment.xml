@@ -17,7 +17,6 @@
         app:srcCompat="@drawable/exchange_image" />
 
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/central_vertical_guidline"
         android:layout_width="wrap_content"
@@ -31,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/start_guideline"
@@ -51,61 +50,61 @@
         android:id="@+id/currency_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textSize="@dimen/text_16"
         android:gravity="center_vertical"
-        android:text="@string/name"
-        app:layout_constraintVertical_weight="2"
         android:paddingStart="@dimen/space_2"
-        app:layout_constraintHorizontal_weight="2.3"
+        android:text="@string/name"
         android:textColor="@color/text_white"
+        android:textSize="@dimen/text_16"
         app:layout_constraintBottom_toTopOf="@+id/currency_char_code"
         app:layout_constraintEnd_toStartOf="@id/currency_name_value"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="2.3"
         app:layout_constraintStart_toStartOf="@+id/central_horizontal_guidline"
-        app:layout_constraintTop_toTopOf="@id/top_guideline" />
+        app:layout_constraintTop_toTopOf="@id/top_guideline"
+        app:layout_constraintVertical_weight="2" />
 
     <TextView
         android:id="@+id/currency_char_code"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/kod"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/space_2"
+        android:text="@string/kod"
         android:textColor="@color/text_white"
-        app:layout_constraintVertical_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/currency_num_code"
         app:layout_constraintEnd_toEndOf="@+id/currency_name"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/currency_name"
-        app:layout_constraintTop_toBottomOf="@+id/currency_name" />
+        app:layout_constraintTop_toBottomOf="@+id/currency_name"
+        app:layout_constraintVertical_weight="1" />
 
     <TextView
         android:id="@+id/currency_num_code"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/numcod"
         android:gravity="center_vertical"
-        app:layout_constraintVertical_weight="1"
         android:paddingStart="@dimen/space_2"
+        android:text="@string/numcod"
         android:textColor="@color/text_white"
         app:layout_constraintBottom_toTopOf="@+id/currency_fragment_value"
         app:layout_constraintEnd_toEndOf="@+id/currency_char_code"
         app:layout_constraintStart_toStartOf="@+id/currency_char_code"
-        app:layout_constraintTop_toBottomOf="@+id/currency_char_code" />
+        app:layout_constraintTop_toBottomOf="@+id/currency_char_code"
+        app:layout_constraintVertical_weight="1" />
 
     <TextView
         android:id="@+id/currency_fragment_value"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:gravity="center_vertical"
         android:paddingStart="@dimen/space_2"
         android:text="@string/kyrs_1"
-        android:gravity="center_vertical"
-        app:layout_constraintVertical_weight="2"
         android:textColor="@color/text_white"
         app:layout_constraintBottom_toTopOf="@id/central_vertical_guidline"
         app:layout_constraintEnd_toEndOf="@+id/currency_num_code"
         app:layout_constraintStart_toStartOf="@+id/currency_num_code"
-        app:layout_constraintTop_toBottomOf="@+id/currency_num_code" />
+        app:layout_constraintTop_toBottomOf="@+id/currency_num_code"
+        app:layout_constraintVertical_weight="2" />
 
     <TextView
         android:id="@+id/change_title"
@@ -124,37 +123,39 @@
     <TextView
         android:id="@+id/result"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_1"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/space_2"
         android:gravity="center"
         android:paddingEnd="@dimen/space_2"
+        android:paddingStart="@dimen/space_2"
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_20"
         android:textStyle="bold"
         android:visibility="gone"
-        tools:text="результат"
-        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_guideline"
         app:layout_constraintEnd_toStartOf="@+id/result_valute"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/textInput" />
+        app:layout_constraintTop_toBottomOf="@+id/textInput"
+        tools:text="результат"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/result_valute"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textSize="@dimen/text_16"
-        android:paddingStart="@dimen/space_2"
-        android:textStyle="bold"
-        android:textColor="@color/text_white"
         android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintHorizontal_weight="1"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_16"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_guideline"
+        app:layout_constraintEnd_toStartOf="@id/change_button"
+        app:layout_constraintHorizontal_weight="0.6"
         app:layout_constraintStart_toEndOf="@+id/result"
-        app:layout_constraintBottom_toBottomOf="@id/result"
         app:layout_constraintTop_toTopOf="@+id/result"
         tools:text="AUD"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/end_guideline"
@@ -167,28 +168,27 @@
         android:id="@+id/change_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="@string/Change"
         android:background="@color/MediumPurple"
+        android:text="@string/Change"
+        app:layout_constraintBottom_toBottomOf="@+id/textInput"
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
-        app:layout_constraintStart_toStartOf="@+id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/textInput"
-        app:layout_constraintBottom_toTopOf="@id/currency_fragment_loader"/>
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/textInput"
+        app:layout_constraintTop_toTopOf="@+id/textInput" />
 
     <TextView
         android:id="@+id/currency_name_value"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textColor="@color/text_white"
-        android:paddingStart="@dimen/space_2"
         android:gravity="center"
+        android:textColor="@color/text_white"
         android:textSize="@dimen/text_16"
         app:layout_constraintBottom_toBottomOf="@+id/currency_name"
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@id/currency_name"
         app:layout_constraintTop_toTopOf="@+id/currency_name"
-        tools:text="Австралийский доллар"/>
+        tools:text="Австралийский доллар" />
 
     <TextView
         android:id="@+id/currency_char_code_value"
@@ -200,28 +200,28 @@
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
         app:layout_constraintStart_toEndOf="@+id/currency_char_code"
         app:layout_constraintTop_toTopOf="@+id/currency_char_code"
-        tools:text="AUD"/>
+        tools:text="AUD" />
 
     <TextView
         android:id="@+id/currency_num_code_value"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:text="021"
         android:gravity="center"
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_16"
         app:layout_constraintBottom_toBottomOf="@+id/currency_num_code"
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
         app:layout_constraintStart_toEndOf="@+id/currency_num_code"
-        app:layout_constraintTop_toTopOf="@+id/currency_num_code" />
+        app:layout_constraintTop_toTopOf="@+id/currency_num_code"
+        tools:text="021" />
 
     <TextView
         android:id="@+id/currency_value_value"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:gravity="center"
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_16"
-        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/currency_previous_value"
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
         app:layout_constraintStart_toEndOf="@+id/currency_fragment_value"
@@ -232,8 +232,8 @@
         android:id="@+id/currency_previous_value"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textSize="@dimen/text_16"
         android:gravity="center"
+        android:textSize="@dimen/text_16"
         app:layout_constraintBottom_toBottomOf="@+id/currency_fragment_value"
         app:layout_constraintEnd_toEndOf="@+id/currency_value_value"
         app:layout_constraintHorizontal_bias="0.5"
@@ -242,32 +242,31 @@
         tools:text="0.0123" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/textInput"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_1"
-        app:counterMaxLength="24"
-        app:errorEnabled="true"
         android:hint="@string/sum_rub"
-        app:helperText="*Не более"
-        app:helperTextTextColor="@color/tag_color_red"
+        android:textColor="@color/white"
         android:textColorHint="@color/gray_gray"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
         android:textStyle="italic"
         app:counterEnabled="true"
+        app:counterMaxLength="24"
         app:counterTextColor="@color/tag_color_red"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/change_title">
+        app:errorEnabled="true"
+        app:helperText="*Не более"
+        app:helperTextTextColor="@color/tag_color_red"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/change_title"
+        app:layout_constraintEnd_toStartOf="@id/change_button">
 
         <com.google.android.material.textfield.TextInputEditText
 
             android:id="@+id/edit_text"
-            android:inputType="numberDecimal"
-            android:textColor="@color/text_white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textColor="@color/text_white" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -277,26 +276,31 @@
         style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:visibility="gone"
-
-        app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
+        app:layout_constraintEnd_toEndOf="@+id/result_valute"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change_button"
+        app:layout_constraintTop_toTopOf="@+id/result"
         tools:visibility="visible" />
 
     <Button
         android:id="@+id/change_fragment_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_1"
         android:layout_marginTop="@dimen/space_1"
-        android:text="@string/back"
+        android:autoSizeTextType="uniform"
         android:background="@android:color/transparent"
-        app:layout_constraintEnd_toStartOf="@+id/central_horizontal_guidline"
+        android:text="@string/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottom_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="16dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

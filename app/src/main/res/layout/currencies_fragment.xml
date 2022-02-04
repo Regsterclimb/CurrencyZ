@@ -12,9 +12,6 @@
         android:id="@+id/recycler_info"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginStart="@dimen/space_1"
-        android:layout_marginTop="@dimen/space_1"
-        android:layout_marginEnd="@dimen/space_1"
         android:background="@color/MediumPurple"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,10 +22,10 @@
             android:id="@+id/column1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.2"
+            android:layout_weight="1"
             android:gravity="center"
             android:textSize="@dimen/text_16"
-            android:textColor="@color/text_white"
+            android:textColor="@color/white"
             android:text="@string/number" />
 
         <TextView
@@ -88,5 +85,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+
+    <ProgressBar
+        android:id="@+id/list_loader"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/currencies_recycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

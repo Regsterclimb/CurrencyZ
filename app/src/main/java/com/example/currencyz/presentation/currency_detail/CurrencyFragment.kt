@@ -66,16 +66,6 @@ class CurrencyFragment : Fragment(), CurrencyView {
         super.onDestroy()
     }
 
-    companion object {
-        private const val ARG_CURRENCY_ID = "ARG_CURRENCY_ID"
-
-        fun newInstance(currencyId: String): CurrencyFragment { // Fragment Instance with movieID
-            val fragment = CurrencyFragment()
-            fragment.arguments = bundleOf("ARG_CURRENCY_ID" to currencyId)
-            return fragment
-        }
-    }
-
 
     private val viewModel: CurrencyListViewModel by viewModels {
         CurrencyListModelFactory(
@@ -95,10 +85,6 @@ class CurrencyFragment : Fragment(), CurrencyView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("aaa", "${requireArguments().getString(ARG_CURRENCY_ID)}")
-
-
-
 
         viewModel.getMyCurrency(requireArguments().getString(ARG_CURRENCY_ID))
 
@@ -134,14 +120,12 @@ class CurrencyFragment : Fragment(), CurrencyView {
     private fun doOnTextChange(editText: TextInputEditText?, textInputLayout: TextInputLayout?) {
 
         editText?.doOnTextChanged { text, _, _, _ ->
-
             if (EditTextHelper.countDigitAfterDot(text.toString())) {
                 textInputLayout?.helperText = "формат ввода 1234.56"
             } else {
                 textInputLayout?.helperText = "*required"
             }
         }
-
     }
 
     private fun setupListners(view: View, myCurrency: RefactoredMyCurrency) {
@@ -151,7 +135,6 @@ class CurrencyFragment : Fragment(), CurrencyView {
         view.findViewById<Button>(R.id.change_fragment_back_button).apply {
             setOnClickListener { listner?.backPressed() }
         }
-
     }
 
     private fun tryToChange(nominal: Int, value: Double) {
@@ -160,7 +143,7 @@ class CurrencyFragment : Fragment(), CurrencyView {
 
     }
 
-    private fun setColors(textView: TextView, myCurrency: RefactoredMyCurrency) {
+    private fun setColors(textView: TextView, myCurrency: RefactoredMyCurrency) { //bad TODO()
         textView.text = myCurrency.previous.first
         if (myCurrency.previous.second) {
             textView.setTextColor(Color.GREEN)
@@ -187,6 +170,16 @@ class CurrencyFragment : Fragment(), CurrencyView {
         changeBtn?.isEnabled = true
         changeSuccess?.text = resultString
 
+    }
+
+    companion object {
+        private const val ARG_CURRENCY_ID = "ARG_CURRENCY_ID"
+
+        fun newInstance(currencyId: String): CurrencyFragment { // Fragment Instance with movieID
+            val fragment = CurrencyFragment()
+            fragment.arguments = bundleOf("ARG_CURRENCY_ID" to currencyId)
+            return fragment
+        }
     }
 
 
