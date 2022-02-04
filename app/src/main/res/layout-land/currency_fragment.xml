@@ -16,13 +16,49 @@
         app:layout_constraintTop_toTopOf="@id/top_guideline"
         app:srcCompat="@drawable/exchange_image" />
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/background_Mat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/change_fragment_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="@dimen/space_1"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_16"
+            android:textStyle="bold"
+            android:text="@string/back" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:padding="2dp"
+            android:text="@string/Valutes"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/central_vertical_guidline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4"
+        app:layout_constraintGuide_percent="0.55"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -44,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/space_1" />
+        app:layout_constraintGuide_begin="50dp" />
 
     <TextView
         android:id="@+id/currency_name"
@@ -170,11 +206,11 @@
         android:layout_height="wrap_content"
         android:background="@color/MediumPurple"
         android:text="@string/Change"
-        app:layout_constraintBottom_toBottomOf="@+id/textInput"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/textInput"
-        app:layout_constraintTop_toTopOf="@+id/textInput" />
+        app:layout_constraintTop_toTopOf="@+id/result_valute" />
 
     <TextView
         android:id="@+id/currency_name_value"
@@ -284,23 +320,21 @@
         app:layout_constraintTop_toTopOf="@+id/result"
         tools:visibility="visible" />
 
-    <Button
-        android:id="@+id/change_fragment_back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_1"
-        android:layout_marginTop="@dimen/space_1"
-        android:autoSizeTextType="uniform"
-        android:background="@android:color/transparent"
-        android:text="@string/back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/bottom_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_end="16dp" />
+
+    <ProgressBar
+        android:id="@+id/currency_loader"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/central_vertical_guidline"
+        app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+        app:layout_constraintStart_toEndOf="@+id/currency_name"
+        app:layout_constraintTop_toTopOf="@+id/top_guideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

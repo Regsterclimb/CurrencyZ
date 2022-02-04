@@ -61,9 +61,8 @@ class CurrencyListFragment : Fragment() {
             this.adapter = adapter
         }
         viewModel.loadCurrencyListSp()
-        viewModel.currencyListLiveData.observe(
-            this.viewLifecycleOwner,
-            { insertCurrencyListToAdapter(it) })
+        viewModel.currencyListLiveData.observe(this.viewLifecycleOwner, {
+            insertCurrencyListToAdapter(it) })
         viewModel.loadingState.observe(this.viewLifecycleOwner, { loadingStateChange(it) })
 
         view.findViewById<FloatingActionButton>(R.id.refresh_button).apply {

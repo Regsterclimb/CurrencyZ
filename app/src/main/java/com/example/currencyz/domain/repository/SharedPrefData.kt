@@ -25,7 +25,8 @@ class SharedPrefData {
 
     // saving data to SP add new or rewrite
     private fun saveDataInside(sharedPreferences: SharedPreferences, list: List<MyCurrency>) {
-        val jsonData = Json.encodeToString(list)
+        val json = Json { ignoreUnknownKeys = true }
+        val jsonData = json.encodeToString(list)
         sharedPreferences.edit {
             putString(Constants.keySp, jsonData)
             apply()
@@ -36,7 +37,8 @@ class SharedPrefData {
     private fun restoreDataInside(sharedPreferences: SharedPreferences): List<MyCurrency>? {
         val jsonData = sharedPreferences.getString(Constants.keySp, null)
         if (jsonData != null) {
-            return Json.decodeFromString<List<MyCurrency>>(jsonData)
+            val json = Json { ignoreUnknownKeys = true }
+            return json.decodeFromString<List<MyCurrency>>(jsonData)
         }
         return null
     }

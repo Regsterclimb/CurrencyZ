@@ -23,16 +23,3 @@ data class CurrencyDto( ///// just for fun
     val value: Double
 )
 
-fun CurrencyDto.toMyCurrency() : MyCurrency {
-
-    return MyCurrency(
-        id = id,
-        charCode = charCode,
-        name = name,
-        nominal = nominal,
-        numCode = numCode,
-        previous = previous,
-        value = value
-    )
-
-}

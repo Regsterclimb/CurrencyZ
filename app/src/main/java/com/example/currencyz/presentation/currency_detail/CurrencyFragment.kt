@@ -3,17 +3,18 @@ package com.example.currencyz.presentation.currency_detail
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.example.currencyz.R
 import com.example.currencyz.di.CurrencyRepositoryProvider
 import com.example.currencyz.domain.model.RefactoredMyCurrency
@@ -88,12 +89,18 @@ class CurrencyFragment : Fragment(), CurrencyView {
 
         viewModel.getMyCurrency(requireArguments().getString(ARG_CURRENCY_ID))
 
+        viewModel.loadingStateCurrency.observe(this.viewLifecycleOwner, { setLoader(it) })
         viewModel.myCurrencyLiveData.observe(this.viewLifecycleOwner, { bindUi(it, view) })
 
         presenter.attachView(this)
     }
 
+    private fun setLoader(it: Boolean) {
+        view?.findViewById<ProgressBar>(R.id.currency_loader)?.isVisible = it
+    }
+
     private fun bindUi(myCurrency: RefactoredMyCurrency, view: View) {
+
         edit = view.findViewById(R.id.edit_text)
         input = view.findViewById(R.id.textInput)
 
@@ -117,6 +124,7 @@ class CurrencyFragment : Fragment(), CurrencyView {
         setColors(view.findViewById(R.id.currency_previous_value), myCurrency) //setColors to Курс
     }
 
+
     private fun doOnTextChange(editText: TextInputEditText?, textInputLayout: TextInputLayout?) {
 
         editText?.doOnTextChanged { text, _, _, _ ->
@@ -138,14 +146,23 @@ class CurrencyFragment : Fragment(), CurrencyView {
     }
 
     private fun tryToChange(nominal: Int, value: Double) {
-
         presenter.change(edit?.text.toString(), nominal, value)
 
     }
 
+    companion object {
+        private const val ARG_CURRENCY_ID = "ARG_CURRENCY_ID"
+
+        fun newInstance(currencyId: String): CurrencyFragment { // Fragment Instance with movieID
+            val fragment = CurrencyFragment()
+            fragment.arguments = bundleOf("ARG_CURRENCY_ID" to currencyId)
+            return fragment
+        }
+    }
+
     private fun setColors(textView: TextView, myCurrency: RefactoredMyCurrency) { //bad TODO()
-        textView.text = myCurrency.previous.first
-        if (myCurrency.previous.second) {
+        textView.text = myCurrency.previous.toString()
+        if (myCurrency.positive) {
             textView.setTextColor(Color.GREEN)
         } else {
             textView.setTextColor(Color.RED)
@@ -170,16 +187,6 @@ class CurrencyFragment : Fragment(), CurrencyView {
         changeBtn?.isEnabled = true
         changeSuccess?.text = resultString
 
-    }
-
-    companion object {
-        private const val ARG_CURRENCY_ID = "ARG_CURRENCY_ID"
-
-        fun newInstance(currencyId: String): CurrencyFragment { // Fragment Instance with movieID
-            val fragment = CurrencyFragment()
-            fragment.arguments = bundleOf("ARG_CURRENCY_ID" to currencyId)
-            return fragment
-        }
     }
 
 

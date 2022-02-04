@@ -7,4 +7,5 @@ interface CurrencyView {
     fun showEditTextError()
 
     fun showSuccess(resultString:String)
+
 }

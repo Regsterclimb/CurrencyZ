@@ -1,7 +1,8 @@
 package com.example.currencyz.domain.model
 
-import com.example.currencyz.domain.calculations.CalculateHelper
+import com.example.currencyz.data.remote.dto.CurrencyDto
 import com.example.currencyz.domain.calculations.RefactorHelper
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -12,19 +13,22 @@ data class MyCurrency(
     val nominal: Int,
     val numCode: String,
     val previous: Double,
-    val value: Double
+    val value: Double,
+    @SerialName("positive")
+    val positive : Boolean,
 )
-
-fun MyCurrency.toRefactoredMyCurrency(): RefactoredMyCurrency {
-    return RefactoredMyCurrency(
-        charCode = charCode,
+fun CurrencyDto.toMyCurrency() : MyCurrency {
+    return MyCurrency(
         id = id,
-        name = RefactorHelper.refactorNames(name, nominal),
+        charCode = charCode,
+        name = name,
         nominal = nominal,
         numCode = numCode,
-        previous = (RefactorHelper.checkPositiveOrNot(previous, value,nominal)),
-        value = CalculateHelper.refractorNumber(nominal, value)
+        previous = RefactorHelper.roundDouble(previous-value),
+        value = value,
+        positive = RefactorHelper.checkPositiveOrNot(previous-value),
     )
-
-
 }
+
+
+

@@ -14,4 +14,5 @@
     <string name="kyrs_1">Курс :</string>
     <string name="title">Перевести рубли в валюту</string>
     <string name="Change">Перевести</string>
+    <string name="Valutes">Валюта</string>
 </resources>

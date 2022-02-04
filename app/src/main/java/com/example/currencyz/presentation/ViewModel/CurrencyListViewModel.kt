@@ -10,6 +10,7 @@ import com.example.currencyz.domain.model.MyCurrency
 import com.example.currencyz.domain.model.RefactoredMyCurrency
 import com.example.currencyz.domain.repository.CurrencyRepository
 import com.example.currencyz.domain.repository.SharedPrefData
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -28,14 +29,18 @@ class CurrencyListViewModel(
     private val _loadingState = MutableLiveData<Boolean>()
     val loadingState = _loadingState
 
+    private val _loadingStateCurrency = MutableLiveData<Boolean>()
+    val loadingStateCurrency  = _loadingStateCurrency
 
 
     fun loadCurrencyListApi() {
         viewModelScope.launch {
             _loadingState.value = true
+
             val list = repository.loadCurrencyList()
             SharedPrefData.saveData(sharedPreferences, list)
             _mutableCurrencyListLiveData.postValue(list)
+
             _loadingState.value = false
         }
 
@@ -43,38 +48,37 @@ class CurrencyListViewModel(
 
     fun loadCurrencyListSp() {
         viewModelScope.launch {
+
             _loadingState.value = true
-            //setLoading
             val cachedList = SharedPrefData.restoreData(sharedPreferences)
             if (cachedList != null) {
-                //setLoading true
                 _mutableCurrencyListLiveData.postValue(cachedList)
+
             } else {
-                //setLoading true*/
+
                 val loadedList = repository.loadCurrencyList()
                 _mutableCurrencyListLiveData.postValue(loadedList)
                 SharedPrefData.saveData(sharedPreferences, loadedList)
+
             }
             _loadingState.value = false
-            //loading success
         }
-        //setLoading false
     }
 
     // don't forget to save data before calling this fun
     fun getMyCurrency(id: String?) {
         try {
             id!!
+
             viewModelScope.launch {
-                //setLoading
+                _loadingStateCurrency.value = true
+
                 _myCurrencyLiveData.postValue(
-                    SharedPrefData.tryGetCurrencyData(
-                        sharedPreferences,
-                        id
-                    )
+                    SharedPrefData.tryGetCurrencyData(sharedPreferences, id)
                 )
-                //loaded
+                _loadingStateCurrency.value = false
             }
+
         } catch (e: IllegalFormatException) {
             Log.e("logs", "IllegalFormatException in CurrencyViewModel")
         }

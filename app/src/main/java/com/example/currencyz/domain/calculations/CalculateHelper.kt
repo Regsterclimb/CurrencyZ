@@ -8,36 +8,25 @@ import java.text.DecimalFormat
 class CalculateHelper {
 
     companion object {
-        fun calculate(
-            inputNumberString: String,
-            nominal: Int,
-            value: Double
-        ): String {
+        fun calculate(inputNumberString: String, nominal: Int, value: Double): String {
+
             return CalculateHelper().startCalculate(inputNumberString, nominal, value)
         }
 
-        fun refractorNumber(nominal: Int, value: Double) = CalculateHelper().roundDouble(
-            CalculateHelper().refactorValueToOneNominal(
-                nominal,
-                value
-            )
+        fun refactorNumber(nominal: Int, value: Double) = CalculateHelper().roundDoubleTwoDigit(
+            CalculateHelper().refactorValueToOneNominal(nominal, value)
         )
     }
 
-    private fun startCalculate(
-        inputNumberString: String,
-        nominal: Int,
-        value: Double
-    ): String {
+    private fun startCalculate(inputNumberString: String, nominal: Int, value: Double): String {
         val firstDouble = (inputNumberString).toBigDecimal()
         val secondDouble = (refactorValueToOneNominal(nominal, value)).toBigDecimal()
         val bigDecimal: BigDecimal = (firstDouble * secondDouble)
-        return stringDecimalFormat(bigDecimal)
-
+        return stringBigDecimalFormat(bigDecimal)
     }
 
-    private fun stringDecimalFormat(bigDecimal: BigDecimal): String {
-        val nf = DecimalFormat("#.##")
+
+    private fun stringBigDecimalFormat(bigDecimal: BigDecimal): String {
         return bigDecimal.setScale(2, RoundingMode.DOWN).toString()
     }
 
@@ -55,10 +44,9 @@ class CalculateHelper {
                 0.0
             }
         }
-
     }
 
-    private fun roundDouble(double: Double): Double {
+    private fun roundDoubleTwoDigit(double: Double): Double {
         val number3Digits: Double = Math.round(double * 1000.0) / 1000.0
         val number2Digits: Double = Math.round(number3Digits * 100.0) / 100.0
         return number2Digits

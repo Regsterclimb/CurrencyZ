@@ -11,14 +11,12 @@ import kotlinx.coroutines.withContext
 
 class CurrencyDataRepositoryImpl : NetworkModuleProvider, CurrencyDataRepository {
 
-    private var currenciesList: List<CurrencyDto>? = null
-
     private val networkModule = NetworkModule()
 
-    override suspend fun loadDataCurrencyDtoList(): List<CurrencyDto> = withContext(Dispatchers.IO) {
-        currenciesList = makeList()
-        makeList()
-    }
+    override suspend fun loadDataCurrencyDtoList(): List<CurrencyDto> =
+        withContext(Dispatchers.IO) {
+            makeList()
+        }
 
     private suspend fun loadApiData(): apiData = withContext(Dispatchers.IO) {
         networkModule.getAllData()

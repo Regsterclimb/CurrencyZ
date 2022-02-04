@@ -9,9 +9,32 @@ class RefactorHelper {
         fun refactorNames(string: String, nominal: Int): String =
             RefactorHelper().replaceCurrencyNames(string, nominal)
 
-        fun checkPositiveOrNot(a: Double, b: Double, nominal: Int): Pair<String, Boolean> =
-            RefactorHelper().startRefactor(a, b, nominal)
 
+        fun roundDouble(double: Double): Double =
+            RefactorHelper().startRefactorToDouble(double)
+
+        fun setDoubleToString(double: Double) = RefactorHelper().setPositive(double)
+
+        fun checkPositiveOrNot(a: Double): Boolean =RefactorHelper().checkPositive(a)
+
+        fun modifyString(string: String, string1: String) =
+            RefactorHelper()._modifyString(string, string1)
+    }
+
+    private fun _modifyString(string: String, string1: String): String {
+        return "$string($string1)"
+
+    }
+
+    private fun setPositive(double: Double): String {
+        return when (checkPositive(double)) {
+            false -> "-$double"
+            else -> "+$double"
+        }
+    }
+
+    private fun startRefactorToDouble(a: Double): Double {
+        return Math.round(a * 10000.0) / 10000.0
     }
 
     private fun checkPositive(doubleDigit: Double): Boolean {
@@ -23,19 +46,21 @@ class RefactorHelper {
 
     }
 
-    private fun startRefactor(
-        a: Double,
-        b: Double,
-        nominal: Int
-    ): Pair<String, Boolean> { // doing a lot work
+    private fun startRefactor(a: Double, b: Double, nominal: Int): Pair<Double, Boolean> {
         val number = a - b
         Log.d("number", "${number}")
-        val cal = CalculateHelper.refractorNumber(nominal, number)
+        val cal = startRefactorToDouble(CalculateHelper.refactorNumber(nominal, number))
         if (checkPositive(cal))
-            return "+$cal" to checkPositive(cal)
+            return cal to checkPositive(cal)
+        return cal to checkPositive(cal) // add one plus to positive
+    }
 
-        return cal.toString() to checkPositive(cal) // add one plus to positive
-
+    private fun startRefactor(a: Double, b: Double): Pair<Double, Boolean> {
+        val number = startRefactorToDouble(a - b)
+        Log.d("number", "${number}")
+        if (checkPositive(number))
+            return number to checkPositive(number)
+        return number to checkPositive(number) // add one plus to positive
     }
 
     private fun replaceCurrencyNames(string: String, nominal: Int): String {
@@ -53,12 +78,6 @@ class RefactorHelper {
 
     }
 
-    private fun startRefactorToDouble(a: Double, b: Double): String { // doing a lot work
-        val number = a - b
-        Log.d("number", "${number}")
-        val number4Digits: Double = Math.round(number * 10000.0) / 10000.0
-        return number4Digits.toString()
-    }
 
     private fun refactorCurrencyNamesTen(string: String): String {
         return when (string) {
