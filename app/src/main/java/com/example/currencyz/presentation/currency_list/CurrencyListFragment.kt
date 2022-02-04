@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.ResourceCursorTreeAdapter
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencyz.R
 import com.example.currencyz.di.CurrencyRepositoryProvider
@@ -39,6 +43,7 @@ class CurrencyListFragment : Fragment() {
         if (context is OnCurrencyClickListner) {
             listner = context
         }
+
         super.onAttach(context)
     }
 
@@ -54,12 +59,15 @@ class CurrencyListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         view.findViewById<RecyclerView>(R.id.currencies_recycler).apply {
             val adapter = CurrencyListAdapter {
                 listner?.clickOnCurrency(it.id)
             }
             this.adapter = adapter
+            addItemDecoration(setDevider())
         }
+
         viewModel.loadCurrencyListSp()
         viewModel.currencyListLiveData.observe(this.viewLifecycleOwner, {
             insertCurrencyListToAdapter(it) })
@@ -95,9 +103,20 @@ class CurrencyListFragment : Fragment() {
     }
 
     private fun loadingStateChange(boolean: Boolean) {
+        view?.findViewById<FloatingActionButton>(R.id.refresh_button)?.isEnabled = !boolean
         view?.findViewById<RecyclerView>(R.id.currencies_recycler)?.isVisible = !boolean
-        view?.findViewById<ProgressBar>(R.id.list_loader)?.isVisible = boolean//TODO()
+        view?.findViewById<ProgressBar>(R.id.list_loader)?.isVisible = boolean
     }
+
+    private fun setDevider() : DividerItemDecoration {
+        val dividerItemDecoration = DividerItemDecoration(this.context, RecyclerView.VERTICAL)
+        ResourcesCompat.getDrawable(resources, R.drawable.line, null)?.let {
+            dividerItemDecoration.setDrawable(it)
+        }
+        return dividerItemDecoration
+    }
+
+
 }
 
 interface OnCurrencyClickListner {

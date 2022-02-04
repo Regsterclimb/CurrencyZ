@@ -28,7 +28,7 @@ class CurrencyPresenter
         presenterScope.cancel()
     }
 
-    fun change(number: String, nominal: Int, value: Double) {
+    fun change(number: String, value: Double) {
         presenterScope.launch {
             view?.setLoading(loading = true)
 
@@ -38,7 +38,7 @@ class CurrencyPresenter
                     view?.showEditTextError()
                 }
                 is EditTextResult.Success -> {
-                    view?.showSuccess(calculateIt(number, nominal, value))
+                    view?.showSuccess(calculateIt(number, value))
                 }
             }
 
@@ -46,6 +46,6 @@ class CurrencyPresenter
         }
     }
 
-    private fun calculateIt(str: String, nominal: Int, value: Double): String =
-        CalculateHelper.calculate(str, nominal, value)
+    private fun calculateIt(str: String, value: Double): String =
+        CalculateHelper.calculate(str, value)
 }

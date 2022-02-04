@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencyz.R
 import com.example.currencyz.di.CurrencyRepositoryProvider
@@ -56,7 +57,6 @@ class CurrencyFragment : Fragment(), CurrencyView {
         edit = null
         changeBtn = null
         loader = null
-        changeSuccess = null
         rubText = null
 
         super.onDestroyView()
@@ -91,8 +91,13 @@ class CurrencyFragment : Fragment(), CurrencyView {
 
         viewModel.loadingStateCurrency.observe(this.viewLifecycleOwner, { setLoader(it) })
         viewModel.myCurrencyLiveData.observe(this.viewLifecycleOwner, { bindUi(it, view) })
+        viewModel.textWather.observe(this.viewLifecycleOwner, { lookingForText(it) })
 
         presenter.attachView(this)
+    }
+
+    private fun lookingForText(it: String) {
+        view?.findViewById<TextView>(R.id.result)?.text = it
     }
 
     private fun setLoader(it: Boolean) {
@@ -138,15 +143,15 @@ class CurrencyFragment : Fragment(), CurrencyView {
 
     private fun setupListners(view: View, myCurrency: RefactoredMyCurrency) {
         changeBtn?.setOnClickListener {
-            tryToChange(myCurrency.nominal, myCurrency.value)
+            tryToChange(myCurrency.value)
         }
         view.findViewById<Button>(R.id.change_fragment_back_button).apply {
             setOnClickListener { listner?.backPressed() }
         }
     }
 
-    private fun tryToChange(nominal: Int, value: Double) {
-        presenter.change(edit?.text.toString(), nominal, value)
+    private fun tryToChange(value: Double) {
+        presenter.change(edit?.text.toString(), value)
 
     }
 
@@ -186,6 +191,7 @@ class CurrencyFragment : Fragment(), CurrencyView {
     override fun showSuccess(resultString: String) {
         changeBtn?.isEnabled = true
         changeSuccess?.text = resultString
+
 
     }
 

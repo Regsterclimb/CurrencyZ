@@ -10,7 +10,6 @@ import com.example.currencyz.domain.model.MyCurrency
 import com.example.currencyz.domain.model.RefactoredMyCurrency
 import com.example.currencyz.domain.repository.CurrencyRepository
 import com.example.currencyz.domain.repository.SharedPrefData
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -30,7 +29,10 @@ class CurrencyListViewModel(
     val loadingState = _loadingState
 
     private val _loadingStateCurrency = MutableLiveData<Boolean>()
-    val loadingStateCurrency  = _loadingStateCurrency
+    val loadingStateCurrency = _loadingStateCurrency
+
+    private val _textWatcher = MutableLiveData<String>()
+    val textWather = _textWatcher
 
 
     fun loadCurrencyListApi() {
@@ -69,7 +71,6 @@ class CurrencyListViewModel(
     fun getMyCurrency(id: String?) {
         try {
             id!!
-
             viewModelScope.launch {
                 _loadingStateCurrency.value = true
 
@@ -81,6 +82,12 @@ class CurrencyListViewModel(
 
         } catch (e: IllegalFormatException) {
             Log.e("logs", "IllegalFormatException in CurrencyViewModel")
+        }
+
+    }
+    fun watchMyText(text: String?) {
+        viewModelScope.launch {
+            textWather.value = text
         }
 
     }

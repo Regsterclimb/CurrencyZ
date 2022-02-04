@@ -1,11 +1,13 @@
 package com.example.currencyz.domain.calculations
 
 import android.util.Log
+import kotlin.math.log
 
 class RefactorHelper {
 
 
     companion object {
+
         fun refactorNames(string: String, nominal: Int): String =
             RefactorHelper().replaceCurrencyNames(string, nominal)
 
@@ -27,6 +29,7 @@ class RefactorHelper {
     }
 
     private fun setPositive(double: Double): String {
+        Log.d("positive", "${checkPositive(double)}" )
         return when (checkPositive(double)) {
             false -> "-$double"
             else -> "+$double"
@@ -44,23 +47,6 @@ class RefactorHelper {
             else -> true
         }
 
-    }
-
-    private fun startRefactor(a: Double, b: Double, nominal: Int): Pair<Double, Boolean> {
-        val number = a - b
-        Log.d("number", "${number}")
-        val cal = startRefactorToDouble(CalculateHelper.refactorNumber(nominal, number))
-        if (checkPositive(cal))
-            return cal to checkPositive(cal)
-        return cal to checkPositive(cal) // add one plus to positive
-    }
-
-    private fun startRefactor(a: Double, b: Double): Pair<Double, Boolean> {
-        val number = startRefactorToDouble(a - b)
-        Log.d("number", "${number}")
-        if (checkPositive(number))
-            return number to checkPositive(number)
-        return number to checkPositive(number) // add one plus to positive
     }
 
     private fun replaceCurrencyNames(string: String, nominal: Int): String {

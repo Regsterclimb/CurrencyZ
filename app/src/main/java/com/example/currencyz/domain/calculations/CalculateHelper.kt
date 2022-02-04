@@ -8,28 +8,26 @@ import java.text.DecimalFormat
 class CalculateHelper {
 
     companion object {
-        fun calculate(inputNumberString: String, nominal: Int, value: Double): String {
+        fun calculate(inputNumberString: String, value: Double): String {
 
-            return CalculateHelper().startCalculate(inputNumberString, nominal, value)
+            return CalculateHelper().startCalculate(inputNumberString, value)
         }
 
-        fun refactorNumber(nominal: Int, value: Double) = CalculateHelper().roundDoubleTwoDigit(
+        fun refactorNumber(nominal: Int, value: Double) = CalculateHelper().roundDoubleThreeDigit(
             CalculateHelper().refactorValueToOneNominal(nominal, value)
         )
     }
 
-    private fun startCalculate(inputNumberString: String, nominal: Int, value: Double): String {
-        val firstDouble = (inputNumberString).toBigDecimal()
-        val secondDouble = (refactorValueToOneNominal(nominal, value)).toBigDecimal()
+    private fun startCalculate(inputNumberString: String, value: Double): String {
+        val firstDouble = inputNumberString.toBigDecimal()
+        val secondDouble = value.toBigDecimal()
         val bigDecimal: BigDecimal = (firstDouble * secondDouble)
         return stringBigDecimalFormat(bigDecimal)
     }
 
-
     private fun stringBigDecimalFormat(bigDecimal: BigDecimal): String {
         return bigDecimal.setScale(2, RoundingMode.DOWN).toString()
     }
-
 
     private fun refactorValueToOneNominal(nominal: Int, value: Double): Double {
 
@@ -46,26 +44,9 @@ class CalculateHelper {
         }
     }
 
-    private fun roundDoubleTwoDigit(double: Double): Double {
+    private fun roundDoubleThreeDigit(double: Double): Double {
         val number3Digits: Double = Math.round(double * 1000.0) / 1000.0
-        val number2Digits: Double = Math.round(number3Digits * 100.0) / 100.0
-        return number2Digits
+        return number3Digits
 
     }
-
-    private fun roudBigDecimal(bigDecimal: BigDecimal): BigDecimal {
-
-        return bigDecimal.setScale(2, RoundingMode.DOWN)
-
-    }
-
-    private fun toBigDecimal(str: String): BigDecimal {
-        try {
-            str.toBigDecimal()
-        } catch (e: NumberFormatException) {
-            Log.d("exception", "NumberFormatException in Calculate.kt str $str")
-        }
-        return str.toBigDecimal()
-    }
-
 }
