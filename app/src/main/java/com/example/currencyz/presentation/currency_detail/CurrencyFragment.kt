@@ -191,8 +191,7 @@ class CurrencyFragment : Fragment(), CurrencyView {
     override fun showSuccess(resultString: String) {
         changeBtn?.isEnabled = true
         changeSuccess?.text = resultString
-
-
+        viewModel.watchMyText()
     }
 
 

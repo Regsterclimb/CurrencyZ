@@ -32,8 +32,7 @@ class CurrencyListViewModel(
     val loadingStateCurrency = _loadingStateCurrency
 
     private val _textWatcher = MutableLiveData<String>()
-    val textWather = _textWatcher
-
+    val textWatcher = _textWatcher
 
     fun loadCurrencyListApi() {
         viewModelScope.launch {
@@ -45,7 +44,6 @@ class CurrencyListViewModel(
 
             _loadingState.value = false
         }
-
     }
 
     fun loadCurrencyListSp() {
@@ -87,7 +85,7 @@ class CurrencyListViewModel(
     }
     fun watchMyText(text: String?) {
         viewModelScope.launch {
-            textWather.value = text
+            textWatcher.value = text
         }
 
     }
