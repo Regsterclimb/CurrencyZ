@@ -12,7 +12,6 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencyz.R
-import com.example.currencyz.di.CurrencyRepositoryProvider
 import com.example.currencyz.domain.model.MyCurrency
 import com.example.currencyz.presentation.App
 import com.example.currencyz.presentation.ViewModel.CurrencyListModelFactory
@@ -30,7 +29,8 @@ class CurrencyListFragment : Fragment(R.layout.currencies_fragment) {
 
     private val viewModel: CurrencyListViewModel by viewModels {
         CurrencyListModelFactory(
-            applicationContext = requireContext().applicationContext)
+            applicationContext = requireContext().applicationContext
+        )
     }
 
     override fun onAttach(context: Context) {
@@ -49,20 +49,18 @@ class CurrencyListFragment : Fragment(R.layout.currencies_fragment) {
                 }
             addItemDecoration(setDivider())
         }
-        viewModel.currencyListLiveData.observe(this.viewLifecycleOwner,
-            {
-                submitList(it)
-            }
-        )
-        viewModel.isLoading.observe(this.viewLifecycleOwner,
-            {
-                loadingStateChange(it)
-            }
-        )
-
-        view.findViewById<FloatingActionButton>(R.id.refresh_button).setOnClickListener {
-            clickOnFloatingButton()
+        viewModel.currencyListLiveData.observe(this.viewLifecycleOwner)
+        {
+            submitList(it)
         }
+        viewModel.isLoading.observe(this.viewLifecycleOwner)
+        {
+            loadingStateChange(it)
+        }
+        view.findViewById<FloatingActionButton>(R.id.refresh_button)
+            .setOnClickListener {
+                clickOnFloatingButton()
+            }
     }
 
     override fun onDetach() {

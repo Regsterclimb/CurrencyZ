@@ -8,7 +8,7 @@ import com.example.currencyz.R
 import com.example.currencyz.domain.model.MyCurrency
 
 class CurrencyListAdapter(
-    private val onItemListner: (myCurrency: MyCurrency) -> Unit
+    private val onItemListener: (myCurrency: MyCurrency) -> Unit
 ) : ListAdapter<MyCurrency, CurrencyListViewHolder>(CurrencyListCallBack())
 {
 
@@ -20,6 +20,6 @@ class CurrencyListAdapter(
     }
 
     override fun onBindViewHolder(holderList: CurrencyListViewHolder, position: Int) {
-        holderList.onBind(getItem(position), onItemListner)
+        holderList.onBind(getItem(position), onItemListener)
     }
 }

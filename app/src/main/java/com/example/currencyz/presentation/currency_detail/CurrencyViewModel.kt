@@ -12,6 +12,7 @@ import com.example.currencyz.domain.model.Constants.Constants.Companion.wrongInp
 import com.example.currencyz.domain.model.RefactoredMyCurrency
 import com.example.currencyz.domain.model.edit_text.EditTextHelper.Companion.countDigitAfterDot
 import com.example.currencyz.domain.repository.CurrencyRepositoryImpl
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -34,8 +35,8 @@ class CurrencyViewModel(
 
     fun getMyCurrency(id: String?) {
         try {
-            id
             viewModelScope.launch {
+                delay(500)
                 _isLoadingLiveData.value = true
                 _myCurrencyLiveData.value = repository.tryToFindId(id!!)
                 _isLoadingLiveData.value = false
@@ -48,6 +49,7 @@ class CurrencyViewModel(
     fun changeCurrency(input: String, value: Double) {
         viewModelScope.launch {
             _resultIsLoading.value = true
+            delay(500)
             when {
                 input.isEmpty() -> resultLiveData.value = isEmpty
                 countDigitAfterDot(input) -> resultLiveData.value = wrongInput

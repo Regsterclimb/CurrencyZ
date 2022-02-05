@@ -305,7 +305,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
-        android:id="@+id/currency_fragment_loader"
+        android:id="@+id/currency_loader"
         style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -325,7 +325,7 @@
         app:layout_constraintGuide_end="16dp" />
 
     <ProgressBar
-        android:id="@+id/currency_loader"
+        android:id="@+id/currency_frag_loader"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
