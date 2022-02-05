@@ -85,7 +85,6 @@ class CurrencyFragment : Fragment(R.layout.currency_fragment), CurrencyView {
         doOnTextChange(
             view.findViewById(R.id.edit_text), view.findViewById(R.id.textInput)
         )
-
         view.findViewById<TextView>(R.id.result_valute).text = myCurrency.charCode
 
         view.findViewById<TextView>(R.id.currency_name_value).text = myCurrency.name

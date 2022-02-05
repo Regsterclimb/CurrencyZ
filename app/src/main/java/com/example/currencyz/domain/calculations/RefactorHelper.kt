@@ -25,10 +25,9 @@ class RefactorHelper {
     }
 
     private fun setPositive(double: Double): String {
-        Log.d("positive", "${checkPositive(double)}")
         return when (checkPositive(double)) {
-            true -> "+$double"
-            else -> "-$double"
+            true -> "$double"
+            else -> "$double"
         }
     }
 
@@ -42,7 +41,6 @@ class RefactorHelper {
             doubleDigit < 0 -> false
             else -> true
         }
-
     }
 
     private fun replaceCurrencyNames(string: String, nominal: Int): String {

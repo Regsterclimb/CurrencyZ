@@ -11,7 +11,6 @@ import com.example.currencyz.domain.model.MyCurrency
 class CurrencyListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun onBind(currency: MyCurrency, onItemListener: (myCurrency: MyCurrency) -> Unit) {
-
         itemView.findViewById<TextView>(R.id.holderPrevious).text =
             RefactorHelper
                 .setDoubleToString(currency.previous)
@@ -29,11 +28,9 @@ class CurrencyListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         setColors(
             itemView.findViewById(R.id.holderPrevious), myCurrency = currency
         )
-
         itemView.setOnClickListener {
             onItemListener(currency)
         }
-
     }
 
     private fun setColors(textView: TextView, myCurrency: MyCurrency) {
@@ -44,5 +41,4 @@ class CurrencyListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
             textView.setTextColor(Color.RED)
         }
     }
-
 }

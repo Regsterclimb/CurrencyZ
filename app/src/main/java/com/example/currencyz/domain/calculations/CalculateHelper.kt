@@ -32,7 +32,6 @@ class CalculateHelper {
             Log.e("error", "деление на ноль CalculateHelper.startCalculate")
             "деленить на ноль нельзя"
         }
-
     }
 
     private fun refactorValueToOneNominal(nominal: Int, value: Double): Double {
@@ -51,6 +50,5 @@ class CalculateHelper {
 
     private fun roundDoubleThreeDigit(double: Double): Double {
         return Math.round(double * 1000.0) / 1000.0
-
     }
 }
