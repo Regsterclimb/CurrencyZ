@@ -10,24 +10,30 @@ import com.example.currencyz.domain.model.MyCurrency
 
 class CurrencyListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val valueMinusPrevious = itemView.findViewById<TextView>(R.id.value_previous)
+    fun onBind(currency: MyCurrency, onItemListener: (myCurrency: MyCurrency) -> Unit) {
 
-    private val nominal = itemView.findViewById<TextView>(R.id.nominal)
+        itemView.findViewById<TextView>(R.id.holderPrevious).text =
+            RefactorHelper
+                .setDoubleToString(currency.previous)
 
-    private val namePlusCharCode = itemView.findViewById<TextView>(R.id.currency_name_and_char_code)
+        setColors(itemView.findViewById(R.id.holderPrevious), myCurrency = currency)
 
-    private val value = itemView.findViewById<TextView>(R.id.currency_value)
+        itemView.findViewById<TextView>(R.id.holderNominal).text = currency.nominal.toString()
 
-    fun onBind(currency: MyCurrency, onItemListner: (myCurrency: MyCurrency) -> Unit) {
-        valueMinusPrevious.text = RefactorHelper.setDoubleToString(currency.previous)
-        setColors(valueMinusPrevious, myCurrency = currency)
+        itemView.findViewById<TextView>(R.id.holderCurrencyName).text =
+            RefactorHelper
+                .modifyString(currency.name, currency.charCode)
 
-        nominal.text = currency.nominal.toString()
-        namePlusCharCode.text = RefactorHelper.modifyString(currency.name, currency.charCode)
-        value.text = currency.value.toString()
+        itemView.findViewById<TextView>(R.id.holderValue).text = currency.value.toString()
+
+        setColors(
+            itemView.findViewById(R.id.holderPrevious), myCurrency = currency
+        )
+
         itemView.setOnClickListener {
-            onItemListner(currency)
+            onItemListener(currency)
         }
+
     }
 
     private fun setColors(textView: TextView, myCurrency: MyCurrency) {

@@ -23,7 +23,6 @@ class NetworkModule : NetworkModuleResponses {
     }
 
     private object RetrofitModule {
-
         private val json = Json {
             ignoreUnknownKeys = true
         }
@@ -34,7 +33,6 @@ class NetworkModule : NetworkModuleResponses {
                     .setLevel(HttpLoggingInterceptor.Level.BODY) // simple interceptor for logs
             )
             .build()
-
 
         @Suppress("EXPERIMENTAL_API_USAGE")
         private val retrofit: Retrofit = Retrofit.Builder()

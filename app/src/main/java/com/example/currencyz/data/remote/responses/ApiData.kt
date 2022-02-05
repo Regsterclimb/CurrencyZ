@@ -26,7 +26,7 @@ data class ApiData(
     val valute: Map<String, CurrencyResponse>
 )
 
-object CurrencyMapSerializer: KSerializer<Map<String, CurrencyResponse>> {
+object CurrencyMapSerializer : KSerializer<Map<String, CurrencyResponse>> {
 
     private val mapSerializer = MapSerializer(String.serializer(), CurrencyResponse.serializer())
 
@@ -36,5 +36,6 @@ object CurrencyMapSerializer: KSerializer<Map<String, CurrencyResponse>> {
         mapSerializer.serialize(encoder, value)
     }
 
-    override fun deserialize(decoder: Decoder): Map<String, CurrencyResponse> = mapSerializer.deserialize(decoder)
+    override fun deserialize(decoder: Decoder): Map<String, CurrencyResponse> =
+        mapSerializer.deserialize(decoder)
 }

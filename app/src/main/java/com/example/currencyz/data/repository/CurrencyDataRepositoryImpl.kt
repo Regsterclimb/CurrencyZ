@@ -1,10 +1,9 @@
 package com.example.currencyz.data.repository
 
-import android.content.Context
 import com.example.currencyz.data.remote.dto.CurrencyDto
-import com.example.currencyz.data.remote.responses.CurrencyResponse
 import com.example.currencyz.data.remote.dto.toCurrencyDto
 import com.example.currencyz.data.remote.network_module.NetworkModule
+import com.example.currencyz.data.remote.responses.CurrencyResponse
 import com.example.currencyz.di.NetworkModuleProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,12 +14,12 @@ class CurrencyDataRepositoryImpl() : NetworkModuleProvider, CurrencyDataReposito
 
     override suspend fun loadDataCurrencyDtoList(): List<CurrencyDto> =
         withContext(Dispatchers.IO) {
-            makeCurrencyResponseList().map {
-                currencyResponse ->  currencyResponse.toCurrencyDto()
+            makeCurrencyResponseList().map { currencyResponse ->
+                currencyResponse.toCurrencyDto()
             }
         }
 
-    private suspend fun makeCurrencyResponseList(): List<CurrencyResponse>  {
+    private suspend fun makeCurrencyResponseList(): List<CurrencyResponse> {
         return networkModule.getAllData().valute.values.toList()
     }
 

@@ -38,7 +38,7 @@ class CurrencyListViewModel(
             _isLoading.value = true
             val cachedList = repository.restoreData()
             if (cachedList != null) {
-                _mutableCurrencyListLiveData.postValue(cachedList)
+                _mutableCurrencyListLiveData.postValue(cachedList!!)
             } else {
                 loadCurrencyListApi()
             }

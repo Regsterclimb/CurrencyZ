@@ -8,63 +8,62 @@
 
 
     <TextView
-        android:id="@+id/currency_name_and_char_code"
+        android:id="@+id/holderCurrencyName"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:layout_marginStart="@dimen/space_1"
+        android:gravity="center_vertical"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/nominal"
+        app:layout_constraintEnd_toStartOf="@+id/holderNominal"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Австралийский доллар(AUD)" />
 
     <TextView
-        android:id="@+id/nominal"
+        android:id="@+id/holderNominal"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center"
         android:padding="2dp"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/currency_value"
+        app:layout_constraintEnd_toStartOf="@+id/holderValue"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/currency_name_and_char_code"
         app:layout_constraintHorizontal_weight="1.5"
+        app:layout_constraintStart_toEndOf="@+id/holderCurrencyName"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="1000" />
 
 
-
     <TextView
-        android:id="@+id/currency_value"
+        android:id="@+id/holderValue"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:gravity="center"
         android:padding="2dp"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/nominal"
-        app:layout_constraintBottom_toTopOf="@id/value_previous"
+        app:layout_constraintBottom_toTopOf="@id/holderPrevious"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@id/holderNominal"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="1"
         tools:text="54.5422" />
 
     <TextView
-        android:id="@+id/value_previous"
+        android:id="@+id/holderPrevious"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/currency_value"
-        app:layout_constraintStart_toEndOf="@+id/nominal"
+        app:layout_constraintStart_toEndOf="@+id/holderNominal"
+        app:layout_constraintTop_toBottomOf="@id/holderValue"
         app:layout_constraintVertical_weight="1"
-        tools:text="+0.03"/>
+        tools:text="+0.03" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
