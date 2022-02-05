@@ -1,6 +1,7 @@
 package com.example.currencyz.domain.repository
 
 import com.example.currencyz.domain.model.MyCurrency
+import com.example.currencyz.domain.model.RefactoredMyCurrency
 
 interface CurrencyRepository {
 
@@ -9,4 +10,6 @@ interface CurrencyRepository {
     fun saveData(list: List<MyCurrency>)
 
     fun restoreData(): List<MyCurrency>?
+
+    fun tryToFindId(id: String): RefactoredMyCurrency?
 }

@@ -3,15 +3,12 @@ package com.example.currencyz.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.currencyz.R
-import com.example.currencyz.di.CurrencyRepositoryProvider
-import com.example.currencyz.domain.repository.CurrencyRepository
 import com.example.currencyz.presentation.currency_detail.ClickListener
 import com.example.currencyz.presentation.currency_detail.CurrencyFragment
 import com.example.currencyz.presentation.currency_list.CurrencyListFragment
 import com.example.currencyz.presentation.currency_list.OnCurrencyClickListener
 
-class MainActivity : AppCompatActivity(), OnCurrencyClickListener, CurrencyRepositoryProvider,
-    ClickListener {
+class MainActivity : AppCompatActivity(), OnCurrencyClickListener, ClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,35 +19,28 @@ class MainActivity : AppCompatActivity(), OnCurrencyClickListener, CurrencyRepos
         }
     }
 
-    private fun startCurrencyListFragment()
-    {
+    private fun startCurrencyListFragment() {
         supportFragmentManager.beginTransaction()
             .apply {
-            replace(
-                R.id.container,
-                CurrencyListFragment.newInstance()
-            )
-            commit()
-        }
-
+                replace(
+                    R.id.container,
+                    CurrencyListFragment.newInstance()
+                )
+                commit()
+            }
     }
 
     override fun clickOnCurrency(myCurrencyId: String) {
         supportFragmentManager.beginTransaction()
             .apply {
-            replace(R.id.container, CurrencyFragment.newInstance(myCurrencyId))
-            addToBackStack(null)
-            commit()
-        }
+                replace(R.id.container, CurrencyFragment.newInstance(myCurrencyId))
+                addToBackStack(null)
+                commit()
+            }
     }
-
 
     override fun backPressed() {
         supportFragmentManager
             .popBackStack()
-    }
-
-    override fun provideCurrencyRepository(): CurrencyRepository {
-        TODO("Not yet implemented")
     }
 }

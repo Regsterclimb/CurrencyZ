@@ -82,9 +82,6 @@ class CurrencyFragment : Fragment(R.layout.currency_fragment), CurrencyView {
     }
 
     private fun bindUi(myCurrency: RefactoredMyCurrency, view: View) {
-        doOnTextChange(
-            view.findViewById(R.id.edit_text), view.findViewById(R.id.textInput)
-        )
         view.findViewById<TextView>(R.id.result_valute).text = myCurrency.charCode
 
         view.findViewById<TextView>(R.id.currency_name_value).text = myCurrency.name
@@ -98,6 +95,10 @@ class CurrencyFragment : Fragment(R.layout.currency_fragment), CurrencyView {
         setupListeners(myCurrency, view)
 
         setColors(view.findViewById(R.id.currency_previous_value), myCurrency)
+
+        doOnTextChange(
+            view.findViewById(R.id.edit_text), view.findViewById(R.id.textInput)
+        )
     }
 
     private fun doOnTextChange(editText: TextInputEditText?, textInputLayout: TextInputLayout?) {

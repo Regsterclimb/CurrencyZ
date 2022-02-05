@@ -54,7 +54,7 @@ class CurrencyRepositoryImpl(appContext: Context) : CurrencyRepository,
         }
     }
 
-    fun tryToFindId(
+    override fun tryToFindId(
         id: String
     ): RefactoredMyCurrency? {
         return restoreData()?.find { it.id == id }?.toRefactoredMyCurrency()
