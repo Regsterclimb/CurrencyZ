@@ -60,7 +60,7 @@ class CurrencyRepositoryImpl(appContext: Context) : CurrencyRepository,
         return restoreData()?.find { it.id == id }?.toRefactoredMyCurrency()
     }
 
-override fun provideCurrencyDataRepository(): CurrencyDataRepositoryImpl = dataRepository
+    override fun provideCurrencyDataRepository(): CurrencyDataRepositoryImpl = dataRepository
 
 }
 

@@ -10,5 +10,7 @@ class Constants {
         const val isEmpty = "Введите число"
 
         const val wrongInput = "Не правильный ввод"
+
+        const val bigNumber = "больше 24 символов"
     }
 }

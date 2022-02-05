@@ -25,8 +25,6 @@ class CurrencyListFragment : Fragment(R.layout.currencies_fragment) {
 
     private val adapter get() = view?.findViewById<RecyclerView>(R.id.currencies_recycler)?.adapter as CurrencyListAdapter
 
-    val app = App.instance
-
     private val viewModel: CurrencyListViewModel by viewModels {
         CurrencyListModelFactory(
             applicationContext = requireContext().applicationContext

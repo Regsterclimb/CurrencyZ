@@ -1,6 +1,6 @@
 package com.example.currencyz.presentation.currency_detail
 
-interface ClickListner {
+interface ClickListener {
 
     fun backPressed()
 }

@@ -4,7 +4,6 @@ import android.util.Log
 
 class RefactorHelper {
 
-
     companion object {
 
         fun refactorNames(string: String, nominal: Int): String =
@@ -28,8 +27,8 @@ class RefactorHelper {
     private fun setPositive(double: Double): String {
         Log.d("positive", "${checkPositive(double)}")
         return when (checkPositive(double)) {
-            false -> "-$double"
-            else -> "+$double"
+            true -> "+$double"
+            else -> "-$double"
         }
     }
 
@@ -51,14 +50,13 @@ class RefactorHelper {
             1 -> string
             10 -> refactorCurrencyNamesTen(string)
             100 -> refactorCurrencyNamesHundred(string)
-            1000 -> refactorCurrencyNamesThousand(string);
-            10000 -> refactorCurrencyNamesTenThousand(string);
+            1000 -> refactorCurrencyNamesThousand(string)
+            10000 -> refactorCurrencyNamesTenThousand(string)
             else -> {
-                Log.e("error", "something wrong with ${string} ")
+                Log.e("error", "something wrong with $string ")
                 string
             }
         }
-
     }
 
     private fun refactorCurrencyNamesTen(string: String): String {
@@ -74,7 +72,7 @@ class RefactorHelper {
             "Шведских крон" -> "Шведская крона"
             "Южноафриканских рэндов" -> "Южноафриканский рэнд"
             else -> {
-                Log.e("error", "something wrong with ${string} ")
+                Log.e("error", "something wrong with $string ")
                 string
             }
         }

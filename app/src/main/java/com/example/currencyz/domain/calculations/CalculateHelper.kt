@@ -1,7 +1,6 @@
 package com.example.currencyz.domain.calculations
 
 import android.util.Log
-import java.math.BigDecimal
 import java.math.RoundingMode
 
 class CalculateHelper {
@@ -20,14 +19,20 @@ class CalculateHelper {
     }
 
     private fun startCalculate(inputNumberString: String, value: Double): String {
-        return stringBigDecimalFormat(
-            inputNumberString.toBigDecimal() * value.toBigDecimal()
-        )
-    }
+        return try {
+            inputNumberString.toBigDecimal()
+                .divide(
+                    value.toBigDecimal(), 2, RoundingMode.HALF_UP
+                ).toString()
 
-    private fun stringBigDecimalFormat(bigDecimal: BigDecimal): String {
-        return bigDecimal
-            .setScale(2, RoundingMode.DOWN).toString()
+        } catch (e: Exception) {
+            Log.e("error", "Ошибка CalculateHelper.startCalculate")
+            "произошла ошибка"
+        } catch (e: ArithmeticException) {
+            Log.e("error", "деление на ноль CalculateHelper.startCalculate")
+            "деленить на ноль нельзя"
+        }
+
     }
 
     private fun refactorValueToOneNominal(nominal: Int, value: Double): Double {

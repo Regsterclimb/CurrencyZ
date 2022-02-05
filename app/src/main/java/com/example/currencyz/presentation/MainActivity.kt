@@ -5,14 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.currencyz.R
 import com.example.currencyz.di.CurrencyRepositoryProvider
 import com.example.currencyz.domain.repository.CurrencyRepository
-import com.example.currencyz.domain.repository.CurrencyRepositoryImpl
-import com.example.currencyz.presentation.currency_detail.ClickListner
+import com.example.currencyz.presentation.currency_detail.ClickListener
 import com.example.currencyz.presentation.currency_detail.CurrencyFragment
 import com.example.currencyz.presentation.currency_list.CurrencyListFragment
 import com.example.currencyz.presentation.currency_list.OnCurrencyClickListener
 
 class MainActivity : AppCompatActivity(), OnCurrencyClickListener, CurrencyRepositoryProvider,
-    ClickListner {
+    ClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

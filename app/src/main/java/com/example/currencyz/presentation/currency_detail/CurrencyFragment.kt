@@ -3,7 +3,6 @@ package com.example.currencyz.presentation.currency_detail
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -15,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.example.currencyz.R
+import com.example.currencyz.domain.model.Constants.Constants.Companion.bigNumber
 import com.example.currencyz.domain.model.Constants.Constants.Companion.isEmpty
 import com.example.currencyz.domain.model.Constants.Constants.Companion.wrongInput
 import com.example.currencyz.domain.model.RefactoredMyCurrency
@@ -24,7 +24,7 @@ import com.google.android.material.textfield.TextInputLayout
 
 class CurrencyFragment : Fragment(R.layout.currency_fragment), CurrencyView {
 
-    private var listener: ClickListner? = null
+    private var listener: ClickListener? = null
 
     private val viewModel: CurrencyViewModel by viewModels {
         CurrencyModelFactory(applicationContext = requireContext().applicationContext)
@@ -36,7 +36,7 @@ class CurrencyFragment : Fragment(R.layout.currency_fragment), CurrencyView {
     }
 
     override fun onAttach(context: Context) {
-        if (context is ClickListner) {
+        if (context is ClickListener) {
             listener = context
         }
         super.onAttach(context)
@@ -72,6 +72,7 @@ class CurrencyFragment : Fragment(R.layout.currency_fragment), CurrencyView {
         when (it) {
             isEmpty -> resultError(isEmpty, view)
             wrongInput -> resultError(wrongInput, view)
+            bigNumber -> resultError(bigNumber, view)
             else -> showSuccess(it, view)
         }
     }

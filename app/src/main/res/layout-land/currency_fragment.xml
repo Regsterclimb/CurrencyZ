@@ -288,6 +288,7 @@
         app:counterTextColor="@color/tag_color_red"
         app:errorEnabled="true"
         app:helperText="*Не более"
+        app:endIconMode="clear_text"
         app:helperTextTextColor="@color/tag_color_red"
         app:layout_constraintStart_toStartOf="@id/start_guideline"
         app:layout_constraintTop_toBottomOf="@+id/change_title"
