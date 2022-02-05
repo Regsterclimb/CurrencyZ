@@ -8,8 +8,8 @@ class CalculateHelper {
 
     companion object {
         fun calculate(inputNumberString: String, value: Double): String =
-            CalculateHelper().startCalculate(inputNumberString, value)
-
+            CalculateHelper()
+                .startCalculate(inputNumberString, value)
 
         fun refactorNumber(nominal: Int, value: Double) =
             CalculateHelper()
@@ -20,11 +20,14 @@ class CalculateHelper {
     }
 
     private fun startCalculate(inputNumberString: String, value: Double): String {
-        return stringBigDecimalFormat(inputNumberString.toBigDecimal() * value.toBigDecimal())
+        return stringBigDecimalFormat(
+            inputNumberString.toBigDecimal() * value.toBigDecimal()
+        )
     }
 
     private fun stringBigDecimalFormat(bigDecimal: BigDecimal): String {
-        return bigDecimal.setScale(2, RoundingMode.DOWN).toString()
+        return bigDecimal
+            .setScale(2, RoundingMode.DOWN).toString()
     }
 
     private fun refactorValueToOneNominal(nominal: Int, value: Double): Double {

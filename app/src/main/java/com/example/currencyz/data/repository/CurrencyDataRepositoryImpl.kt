@@ -2,7 +2,7 @@ package com.example.currencyz.data.repository
 
 import android.content.Context
 import com.example.currencyz.data.remote.dto.CurrencyDto
-import com.example.currencyz.data.remote.dto.responses.CurrencyResponse
+import com.example.currencyz.data.remote.responses.CurrencyResponse
 import com.example.currencyz.data.remote.dto.toCurrencyDto
 import com.example.currencyz.data.remote.network_module.NetworkModule
 import com.example.currencyz.di.NetworkModuleProvider

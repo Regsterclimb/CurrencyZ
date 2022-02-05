@@ -10,7 +10,6 @@ class RefactorHelper {
         fun refactorNames(string: String, nominal: Int): String =
             RefactorHelper().replaceCurrencyNames(string, nominal)
 
-
         fun roundDouble(double: Double): Double =
             RefactorHelper().startRefactorToDouble(double)
 
@@ -24,7 +23,6 @@ class RefactorHelper {
 
     private fun modifyStringInc(string: String, string1: String): String {
         return "$string($string1)"
-
     }
 
     private fun setPositive(double: Double): String {
@@ -63,7 +61,6 @@ class RefactorHelper {
 
     }
 
-
     private fun refactorCurrencyNamesTen(string: String): String {
         return when (string) {
             "Гонконгских долларов" -> "Гонконгский доллар"
@@ -80,9 +77,7 @@ class RefactorHelper {
                 Log.e("error", "something wrong with ${string} ")
                 string
             }
-
         }
-
     }
 
     private fun refactorCurrencyNamesHundred(string: String): String {
@@ -108,7 +103,6 @@ class RefactorHelper {
             }
         }
     }
-
 
     private fun refactorCurrencyNamesTenThousand(string: String): String {
         return when (string) {

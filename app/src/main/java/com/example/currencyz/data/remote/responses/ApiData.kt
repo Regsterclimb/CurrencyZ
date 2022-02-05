@@ -1,7 +1,7 @@
 package com.example.currencyz.data.remote.dto
 
 
-import com.example.currencyz.data.remote.dto.responses.CurrencyResponse
+import com.example.currencyz.data.remote.responses.CurrencyResponse
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -1,4 +1,4 @@
-package com.example.currencyz.data.remote.dto.responses
+package com.example.currencyz.data.remote.responses
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

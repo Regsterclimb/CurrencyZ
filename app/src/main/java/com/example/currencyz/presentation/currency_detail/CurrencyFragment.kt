@@ -16,22 +16,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.example.currencyz.R
-import com.example.currencyz.di.CurrencyRepositoryProvider
+import com.example.currencyz.domain.model.Constants.Constants.Companion.isEmpty
+import com.example.currencyz.domain.model.Constants.Constants.Companion.wrongInput
 import com.example.currencyz.domain.model.RefactoredMyCurrency
 import com.example.currencyz.domain.model.edit_text.EditTextHelper
-import com.example.currencyz.domain.model.edit_text.EditTextInteractor
-import com.example.currencyz.presentation.App
-import com.example.currencyz.presentation.ViewModel.CurrencyListModelFactory
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.Dispatchers
 
 class CurrencyFragment : Fragment(R.layout.currencies_fragment), CurrencyView {
 
-    private val presenter = CurrencyPresenter(
-        interactor = EditTextInteractor(dispatcher = Dispatchers.Default),
-        mainDispatcher = Dispatchers.Main.immediate
-    )
+    override fun onCreate(savedInstanceState: Bundle?) {
+        viewModel.getMyCurrency(requireArguments().getString(ARG_CURRENCY_ID))
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onAttach(context: Context) {
         if (context is ClickListner) {
@@ -51,7 +48,6 @@ class CurrencyFragment : Fragment(R.layout.currencies_fragment), CurrencyView {
     override fun onDestroyView() {
 
         listener = null
-        presenter.detachView()
         input = null
         edit = null
         changeBtn = null
@@ -62,7 +58,6 @@ class CurrencyFragment : Fragment(R.layout.currencies_fragment), CurrencyView {
     }
 
     override fun onDestroy() {
-        presenter.onDestroy()
         super.onDestroy()
     }
 
@@ -81,17 +76,22 @@ class CurrencyFragment : Fragment(R.layout.currencies_fragment), CurrencyView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getMyCurrency(requireArguments().getString(ARG_CURRENCY_ID))
-
-        viewModel.loadingStateCurrency.observe(this.viewLifecycleOwner, { setLoader(it) })
+        viewModel.isLoading.observe(this.viewLifecycleOwner, { setLoader(it) })
         viewModel.myCurrencyLiveData.observe(this.viewLifecycleOwner, { bindUi(it, view) })
         viewModel.resultLiveData.observe(this.viewLifecycleOwner, { lookingForText(it) })
+        viewModel.isLoading.observe(this.viewLifecycleOwner, {
+            setLoading(it)
+        })
 
-        presenter.attachView(this)
     }
 
     private fun lookingForText(it: String) {
-        view?.findViewById<TextView>(R.id.result)?.text = it
+        when (it) {
+            isEmpty -> showEditTextError()
+            wrongInput -> showEditTextError()
+            else -> showSuccess(it)
+
+        }
     }
 
     private fun setLoader(it: Boolean) {
@@ -99,32 +99,37 @@ class CurrencyFragment : Fragment(R.layout.currencies_fragment), CurrencyView {
     }
 
     private fun bindUi(myCurrency: RefactoredMyCurrency, view: View) {
-
         edit = view.findViewById(R.id.edit_text)
+
         input = view.findViewById(R.id.textInput)
 
         doOnTextChange(edit, input)
+
         changeBtn = view.findViewById(R.id.change_button)
 
         loader = view.findViewById(R.id.currency_fragment_loader)
+
         changeSuccess = view.findViewById(R.id.result)
 
         rubText = view.findViewById(R.id.result_valute)
+
         rubText?.text = myCurrency.charCode
 
         view.findViewById<TextView>(R.id.currency_name_value).text = myCurrency.name
+
         view.findViewById<TextView>(R.id.currency_char_code_value).text = myCurrency.charCode
 
         view.findViewById<TextView>(R.id.currency_num_code_value).text = myCurrency.numCode
+
         view.findViewById<TextView>(R.id.currency_value_value).text =
             myCurrency.value.toString()
 
-        setupListners(view, myCurrency)
+        setupListeners(myCurrency)
+
         setColors(view.findViewById(R.id.currency_previous_value), myCurrency) //setColors to Курс
     }
 
     private fun doOnTextChange(editText: TextInputEditText?, textInputLayout: TextInputLayout?) {
-
         editText?.doOnTextChanged { text, _, _, _ ->
             if (EditTextHelper.countDigitAfterDot(text.toString())) {
                 textInputLayout?.helperText = "формат ввода 1234.56"
@@ -134,16 +139,18 @@ class CurrencyFragment : Fragment(R.layout.currencies_fragment), CurrencyView {
         }
     }
 
-    private fun setupListners(view: View, myCurrency: RefactoredMyCurrency) {
+    private fun setupListeners(myCurrency: RefactoredMyCurrency) {
         changeBtn?.setOnClickListener {
             tryToChange(myCurrency.value)
         }
-        view.findViewById<Button>(R.id.change_fragment_back_button)
-            .setOnClickListener { listener?.backPressed() }
+        view?.findViewById<Button>(R.id.change_fragment_back_button)
+            ?.setOnClickListener {
+                listener?.backPressed()
+            }
     }
 
     private fun tryToChange(value: Double) {
-        presenter.change(edit?.text.toString(), value)
+        viewModel.changeCurrency(edit?.text.toString(), value)
     }
 
     companion object {
@@ -169,7 +176,6 @@ class CurrencyFragment : Fragment(R.layout.currencies_fragment), CurrencyView {
         rubText?.isVisible = !loading
         changeBtn?.isEnabled = !loading
         loader?.isVisible = loading
-
     }
 
     override fun showEditTextError() {
@@ -181,6 +187,5 @@ class CurrencyFragment : Fragment(R.layout.currencies_fragment), CurrencyView {
         changeBtn?.isEnabled = true
         changeSuccess?.text = resultString
     }
-
 
 }
