@@ -33,14 +33,15 @@ class CurrencyViewModel(
 
 
     fun getMyCurrency(id: String?) {
-        try {
-            viewModelScope.launch {
-                _isLoadingLiveData.value = true
+
+        viewModelScope.launch {
+            _isLoadingLiveData.value = true
+            try {
                 _myCurrencyLiveData.value = repository.tryToFindId(id!!)
-                _isLoadingLiveData.value = false
+            } catch (e: IllegalFormatException) {
+                Log.e("logs", "IllegalFormatException in CurrencyViewModel")
             }
-        } catch (e: IllegalFormatException) {
-            Log.e("logs", "IllegalFormatException in CurrencyViewModel")
+            _isLoadingLiveData.value = false
         }
     }
 

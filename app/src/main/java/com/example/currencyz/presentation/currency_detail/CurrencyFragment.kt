@@ -22,7 +22,7 @@ import com.example.currencyz.domain.model.edit_text.EditTextHelper
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class CurrencyFragment : Fragment(R.layout.currency_fragment), CurrencyView {
+class CurrencyFragment : Fragment(R.layout.currency_fragment) {
 
     private var listener: ClickListener? = null
 
@@ -137,19 +137,19 @@ class CurrencyFragment : Fragment(R.layout.currency_fragment), CurrencyView {
         }
     }
 
-    override fun setLoading(loading: Boolean, view: View) {
+    private fun setLoading(loading: Boolean, view: View) {
         view.findViewById<TextView>(R.id.result)?.isVisible = !loading
         view.findViewById<TextView>(R.id.result_valute)?.isVisible = !loading
         view.findViewById<Button>(R.id.change_button).isEnabled = !loading
         view.findViewById<ProgressBar>(R.id.currency_loader)?.isVisible = loading
     }
 
-    override fun resultError(error: String, view: View) {
+    private fun resultError(error: String, view: View) {
         view.findViewById<TextInputEditText>(R.id.edit_text)?.error = error
         view.findViewById<TextView>(R.id.result)?.text = ""
     }
 
-    override fun showSuccess(resultString: String, view: View) {
+    private fun showSuccess(resultString: String, view: View) {
         view.findViewById<Button>(R.id.change_button).isEnabled = true
         view.findViewById<TextView>(R.id.result)?.text = resultString
     }
