@@ -1,19 +1,18 @@
-package com.example.currencyz
+package com.example.currencyz.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.currencyz.R
 import com.example.currencyz.di.CurrencyRepositoryProvider
 import com.example.currencyz.domain.repository.CurrencyRepository
 import com.example.currencyz.domain.repository.CurrencyRepositoryImpl
-import com.example.currencyz.presentation.currency_detail.CurrencyFragment
 import com.example.currencyz.presentation.currency_detail.ClickListner
+import com.example.currencyz.presentation.currency_detail.CurrencyFragment
 import com.example.currencyz.presentation.currency_list.CurrencyListFragment
-import com.example.currencyz.presentation.currency_list.OnCurrencyClickListner
-import kotlinx.coroutines.*
+import com.example.currencyz.presentation.currency_list.OnCurrencyClickListener
 
-class MainActivity : AppCompatActivity(), OnCurrencyClickListner, CurrencyRepositoryProvider,ClickListner {
-
-    private var  repositoryImpl = CurrencyRepositoryImpl()
+class MainActivity : AppCompatActivity(), OnCurrencyClickListener, CurrencyRepositoryProvider,
+    ClickListner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,29 +23,35 @@ class MainActivity : AppCompatActivity(), OnCurrencyClickListner, CurrencyReposi
         }
     }
 
-    private fun startCurrencyListFragment() {
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.container,
+    private fun startCurrencyListFragment()
+    {
+        supportFragmentManager.beginTransaction()
+            .apply {
+            replace(
+                R.id.container,
                 CurrencyListFragment.newInstance()
-                    .apply {
-                        setListner(this@MainActivity)
-                    })
+            )
             commit()
         }
 
     }
 
     override fun clickOnCurrency(myCurrencyId: String) {
-        supportFragmentManager.beginTransaction().apply {
+        supportFragmentManager.beginTransaction()
+            .apply {
             replace(R.id.container, CurrencyFragment.newInstance(myCurrencyId))
             addToBackStack(null)
             commit()
         }
     }
 
-    override fun provideCurrencyRepository(): CurrencyRepository = repositoryImpl
 
     override fun backPressed() {
-        supportFragmentManager.popBackStack()
+        supportFragmentManager
+            .popBackStack()
+    }
+
+    override fun provideCurrencyRepository(): CurrencyRepository {
+        TODO("Not yet implemented")
     }
 }

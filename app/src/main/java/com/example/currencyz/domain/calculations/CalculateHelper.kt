@@ -3,26 +3,24 @@ package com.example.currencyz.domain.calculations
 import android.util.Log
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.text.DecimalFormat
 
 class CalculateHelper {
 
     companion object {
-        fun calculate(inputNumberString: String, value: Double): String {
+        fun calculate(inputNumberString: String, value: Double): String =
+            CalculateHelper().startCalculate(inputNumberString, value)
 
-            return CalculateHelper().startCalculate(inputNumberString, value)
-        }
 
-        fun refactorNumber(nominal: Int, value: Double) = CalculateHelper().roundDoubleThreeDigit(
-            CalculateHelper().refactorValueToOneNominal(nominal, value)
-        )
+        fun refactorNumber(nominal: Int, value: Double) =
+            CalculateHelper()
+                .roundDoubleThreeDigit(
+                    CalculateHelper()
+                        .refactorValueToOneNominal(nominal, value)
+                )
     }
 
     private fun startCalculate(inputNumberString: String, value: Double): String {
-        val firstDouble = inputNumberString.toBigDecimal()
-        val secondDouble = value.toBigDecimal()
-        val bigDecimal: BigDecimal = (firstDouble * secondDouble)
-        return stringBigDecimalFormat(bigDecimal)
+        return stringBigDecimalFormat(inputNumberString.toBigDecimal() * value.toBigDecimal())
     }
 
     private fun stringBigDecimalFormat(bigDecimal: BigDecimal): String {
@@ -30,7 +28,6 @@ class CalculateHelper {
     }
 
     private fun refactorValueToOneNominal(nominal: Int, value: Double): Double {
-
         return when (nominal) {
             1 -> value
             10 -> (value / 10.0)
@@ -38,15 +35,14 @@ class CalculateHelper {
             1000 -> (value / 1000.0)
             10000 -> (value / 10000.0)
             else -> {
-                Log.e("error", "something wrong with ${nominal} ")
+                Log.e("error", "something wrong with $nominal ")
                 0.0
             }
         }
     }
 
     private fun roundDoubleThreeDigit(double: Double): Double {
-        val number3Digits: Double = Math.round(double * 1000.0) / 1000.0
-        return number3Digits
+        return Math.round(double * 1000.0) / 1000.0
 
     }
 }

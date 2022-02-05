@@ -1,12 +1,10 @@
-package com.example.currencyz.data.remote.dto
+package com.example.currencyz.data.remote.dto.responses
 
-
-import com.example.currencyz.data.remote.dto.responses.CurrencyResponse
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CurrencyDto(
+data class CurrencyResponse(
     @SerialName("CharCode")
     val charCode: String,
     @SerialName("ID")
@@ -22,10 +20,3 @@ data class CurrencyDto(
     @SerialName("Value")
     val value: Double
 )
-
-fun CurrencyResponse.toCurrencyDto() :CurrencyDto {
-    return CurrencyDto(
-        charCode, id, name, nominal, numCode, previous, value
-    )
-}
-

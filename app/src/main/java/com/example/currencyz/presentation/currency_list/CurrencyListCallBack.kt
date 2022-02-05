@@ -6,6 +6,7 @@ import com.example.currencyz.domain.model.MyCurrency
 import kotlin.math.log
 
 class CurrencyListCallBack : DiffUtil.ItemCallback<MyCurrency>() {
+
     override fun areItemsTheSame(oldItem: MyCurrency, newItem: MyCurrency): Boolean {
         return oldItem.id == newItem.id
     }

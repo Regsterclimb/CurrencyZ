@@ -1,6 +1,6 @@
 package com.example.currencyz.data.remote.network_module
 
-import com.example.currencyz.data.remote.dto.apiData
+import com.example.currencyz.data.remote.dto.ApiData
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -18,7 +18,7 @@ class NetworkModule : NetworkModuleResponses {
 
     private interface CbrCurrencyApi {
         @GET("/daily_json.js")    // allData
-        suspend fun loadDataFromApi(): apiData
+        suspend fun loadDataFromApi(): ApiData
 
     }
 
@@ -46,7 +46,7 @@ class NetworkModule : NetworkModuleResponses {
         val cbrCurrencyApi: CbrCurrencyApi = retrofit.create()
     }
 
-    override suspend fun getAllData(): apiData = RetrofitModule.cbrCurrencyApi.loadDataFromApi()
+    override suspend fun getAllData(): ApiData = RetrofitModule.cbrCurrencyApi.loadDataFromApi()
 
 }
 

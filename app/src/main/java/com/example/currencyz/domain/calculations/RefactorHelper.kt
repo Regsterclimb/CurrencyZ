@@ -1,7 +1,6 @@
 package com.example.currencyz.domain.calculations
 
 import android.util.Log
-import kotlin.math.log
 
 class RefactorHelper {
 
@@ -17,19 +16,19 @@ class RefactorHelper {
 
         fun setDoubleToString(double: Double) = RefactorHelper().setPositive(double)
 
-        fun checkPositiveOrNot(a: Double): Boolean =RefactorHelper().checkPositive(a)
+        fun checkPositiveOrNot(a: Double): Boolean = RefactorHelper().checkPositive(a)
 
         fun modifyString(string: String, string1: String) =
-            RefactorHelper()._modifyString(string, string1)
+            RefactorHelper().modifyStringInc(string, string1)
     }
 
-    private fun _modifyString(string: String, string1: String): String {
+    private fun modifyStringInc(string: String, string1: String): String {
         return "$string($string1)"
 
     }
 
     private fun setPositive(double: Double): String {
-        Log.d("positive", "${checkPositive(double)}" )
+        Log.d("positive", "${checkPositive(double)}")
         return when (checkPositive(double)) {
             false -> "-$double"
             else -> "+$double"

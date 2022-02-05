@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.currencyz.R
 import com.example.currencyz.domain.model.MyCurrency
 
-class CurrencyListAdapter(private val onItemListner: (myCurrency: MyCurrency) -> Unit) :
-    ListAdapter<MyCurrency, CurrencyListViewHolder>(CurrencyListCallBack()) {
+class CurrencyListAdapter(
+    private val onItemListner: (myCurrency: MyCurrency) -> Unit
+) : ListAdapter<MyCurrency, CurrencyListViewHolder>(CurrencyListCallBack())
+{
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyListViewHolder {
         val view: View =
